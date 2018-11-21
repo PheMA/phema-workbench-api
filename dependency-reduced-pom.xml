@@ -46,7 +46,6 @@
           </execution>
         </executions>
         <configuration>
-          <id>api</id>
           <mainClass>org.phema.executer.PheEx</mainClass>
         </configuration>
       </plugin>
@@ -62,7 +61,6 @@
           </execution>
         </executions>
         <configuration>
-          <id>watch</id>
           <executable>src/ui/node/yarn/dist/bin/yarn</executable>
           <workingDirectory>src/ui/</workingDirectory>
           <arguments>

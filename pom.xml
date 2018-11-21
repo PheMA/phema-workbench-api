@@ -27,7 +27,6 @@
             <version>${version.jetty}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-servlet</artifactId>
@@ -39,7 +38,6 @@
             <artifactId>jersey-server</artifactId>
             <version>${version.jersey}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.glassfish.jersey.containers</groupId>
@@ -57,6 +55,27 @@
             <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-json-jackson</artifactId>
             <version>${version.jersey}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
 
@@ -105,7 +124,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <id>api</id>
                     <mainClass>org.phema.executer.PheEx</mainClass>
                 </configuration>
             </plugin>
@@ -122,7 +140,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <id>watch</id>
                     <executable>src/ui/node/yarn/dist/bin/yarn</executable>
                     <workingDirectory>src/ui/</workingDirectory>
                     <arguments>

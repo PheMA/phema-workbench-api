@@ -1,0 +1,8 @@
+.idea/
+node_modules/
+src/ui/.cache/
+src/ui/dist/
+src/ui/node/
+src/ui/.node_modules/
+target/
+phex.iml

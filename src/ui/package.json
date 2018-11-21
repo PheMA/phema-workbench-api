@@ -1,0 +1,17 @@
+{
+  "name": "phex",
+  "version": "1.0.0",
+  "description": "PheEX User Interface",
+  "main": "index.js",
+  "scripts": {
+    "watch": "parcel watch index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "parcel": "^1.10.3",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}

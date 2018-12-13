@@ -81,6 +81,7 @@
 
     <build>
         <finalName>PheEx</finalName>
+        <sourceDirectory>src/api/main</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.github.eirslett</groupId>

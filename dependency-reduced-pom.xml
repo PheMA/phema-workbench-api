@@ -7,6 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <build>
+    <sourceDirectory>src/api/main</sourceDirectory>
     <finalName>PheEx</finalName>
     <plugins>
       <plugin>

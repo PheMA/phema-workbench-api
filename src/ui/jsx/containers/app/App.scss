@@ -1,0 +1,11 @@
+.app {
+  height: 100%;
+
+  &__layout {
+    height: 100%;
+
+    &__content {
+      height: 100%;
+    }
+  }
+}

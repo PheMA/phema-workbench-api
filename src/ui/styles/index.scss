@@ -1,0 +1,14 @@
+// ANT Component Library
+@import 'antd/dist/antd.css';
+// Globals
+@import "variables.scss";
+@import "fonts.scss";
+// Containers
+@import "../jsx/containers/app/App.scss";
+
+// Components
+@import "../jsx/components/common/Common.scss";
+@import "../jsx/components/header/Header.scss";
+@import "../jsx/components/main/Main.scss";
+@import "../jsx/components/footer/Footer.scss";
+@import "../jsx/components/phenotypes/Phenotypes.scss";

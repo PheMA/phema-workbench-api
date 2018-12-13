@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
+
+import App from "./containers/app/App";
 
 class PheEx extends React.Component {
     render() {
-        return <h1>Hello, PheEx</h1>;
+        return <App/>
     }
 }
 

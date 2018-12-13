@@ -5,4 +5,5 @@ src/ui/dist/
 src/ui/node/
 src/ui/.node_modules/
 target/
-phex.iml
+.DS_Store
+*.iml

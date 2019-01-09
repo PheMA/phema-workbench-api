@@ -1,11 +1,13 @@
 .app {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 
   &__layout {
-    height: 100%;
+    height: 100vh;
 
     &__content {
-      height: 100%;
+      height: 100vh;
     }
   }
 }

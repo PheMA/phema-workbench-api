@@ -1,19 +1,14 @@
-$colors: (
-  black: #231f20,
-  darkGold: #574f3a,
-  blue: #2354a1,
-  darkBlue: #0e2140,
-  purple: #5d51a5,
-  darkPurple: #332f62,
-  lightGray: #e6e6e6,
-  darkGray: #626262
-);
+$colors: ( black: #231f20,
+darkGold: #574f3a,
+blue: #2354a1,
+darkBlue: #0e2140,
+purple: #5d51a5,
+darkPurple: #332f62,
+lightGray: #e6e6e6,
+darkGray: #626262,
+primary: #137cbd);
 
-$images: (
-  phemaIcon: url("../assets/img/phema-icon.svg")
-);
+$images: ( phemaIcon: url("../assets/img/phema-icon.svg"));
 
-$fontSize: (
-  headerLarge: 18px,
-  footer: 11px
-);
+$fontSize: ( headerLarge: 18px,
+footer: 11px);

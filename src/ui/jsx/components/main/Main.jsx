@@ -1,22 +1,23 @@
 import React from "react";
 import SplitPane from "react-split-pane";
-import Phenotypes from "../phenotypes/Phenotypes";
+import Phenotypes from "../phenotypes/Phenotypes.jsx";
 
 const Main = () => (
   <div className="main">
     <SplitPane
       split="vertical"
-      defaultSize={"30%"}
+      defaultSize={"25%"}
       maxSize={-50}
       className="primary"
     >
-      <SplitPane split="horizontal" defaultSize={"50%"} maxSize={-50}>
-        <div>
-          <Phenotypes />
-        </div>
-        <div>asdaSD</div>
+      <SplitPane split="horizontal" defaultSize={"35%"} maxSize={-50}>
+        <Phenotypes />
+        <div>Data Connections</div>
       </SplitPane>
-      <div>min: 50px, max: 300px</div>
+      <SplitPane split="horizontal" defaultSize={"65%"} maxSize={-50}>
+        <div>Phenotype Details</div>
+        <div>Execution Log</div>
+      </SplitPane>
     </SplitPane>
   </div>
 );

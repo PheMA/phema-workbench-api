@@ -1,0 +1,51 @@
+.phenotypes {
+  width: 100%;
+}
+
+.addPhenotype {
+  height: 100%;
+  padding: 10px 10px 0px 10px;
+
+  &__actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    button {
+      margin-right: 5px;
+    }
+  }
+}
+
+.dropArea,
+.dropArea--active {
+  height: 150px;
+  border: 2px dashed map-get($colors, darkGray);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &--active {
+    border: 2px dashed map-get($colors, primary);
+  }
+
+  &__text,
+  &__text--active {
+    margin-bottom: 15px;
+
+    &--active {
+      color: map-get($colors, primary);
+    }
+  }
+
+  &__icon {
+    color: map-get($colors, darkGray);
+
+    &--active {
+      color: map-get($colors, primary);
+    }
+  }
+}

@@ -1,0 +1,15 @@
+.actionHeader {
+  padding: 5px;
+  background-color: map-get($colors, lightGray);
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+
+  &__title {
+    font-family: "Syncopate";
+    font-size: map-get($fontSize, headerLarge);
+    display: flex;
+    align-items: center;
+  }
+}

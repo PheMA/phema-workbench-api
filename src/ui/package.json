@@ -10,15 +10,15 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "antd": "^3.10.8",
+    "@blueprintjs/core": "^3.10.0",
+    "@blueprintjs/icons": "^3.4.0",
     "assemble": "~0.3.11",
-    "grunt": "~0.4.0",
+    "es6-shim": "^0.35.4",
     "parcel": "^1.10.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-split-pane": "^0.1.84",
-    "styles": "^0.2.1"
+    "react-split-pane": "^0.1.84"
   },
   "devDependencies": {
     "eslint": "^5.9.0",

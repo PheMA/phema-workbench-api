@@ -30,18 +30,18 @@ this requirement, but if you need to install Java manually, see the documentatio
 
 The PhEX application is built using the following technologies:
 
-* Java (1.8)
-    * [Maven](https://maven.apache.org/)
-    * [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)
-    * [Jetty](https://www.eclipse.org/jetty/documentation/)
-    * [Jersey](https://jersey.github.io/)
-* JavaScript (es2015)
-    * [Yarn](https://yarnpkg.com/en/)
-    * [Parcel](https://parceljs.org/)
-    * [React](https://reactjs.org/)
-    * [Redux](https://redux.js.org/)
-    * [Redux-Saga](https://redux-saga.js.org/)
-    * [antd](https://ant.design/docs/react/introduce)
+- Java (1.8)
+  - [Maven](https://maven.apache.org/)
+  - [frontend-maven-plugin](https://github.com/eirslett/frontend-maven-plugin)
+  - [Jetty](https://www.eclipse.org/jetty/documentation/)
+  - [Jersey](https://jersey.github.io/)
+- JavaScript (es2015)
+  - [Yarn](https://yarnpkg.com/en/)
+  - [Parcel](https://parceljs.org/)
+  - [React](https://reactjs.org/)
+  - [Redux](https://redux.js.org/)
+  - [Redux-Saga](https://redux-saga.js.org/)
+  - [Blueprint](https://blueprintjs.com/docs/)
 
 ### Workflow
 
@@ -52,7 +52,6 @@ git clone https://github.com/PheMA/phex.git && cd phex
 ```
 
 > #### 2. Install local copies of Node and Yarn
-
 
 ```
 mvn frontend:install-node-and-yarn
@@ -83,7 +82,7 @@ mvn exec:java
 ```
 
 :bulb: Once you've run Parcel at least once (`mvn exec:exec`) and you have the API up and running, you can navigate to
-http://localhost:8083 in your browser to see the application. 
+http://localhost:8083 in your browser to see the application.
 
 > #### 6. Build Release
 

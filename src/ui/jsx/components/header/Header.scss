@@ -1,11 +1,13 @@
 .header {
-  .ant-layout-header {
-    background: map-get($colors, darkBlue);
-    background: linear-gradient(90deg, map-get($colors, blue) 0%, map-get($colors, darkPurple) 100%);
-    padding: 0 14px;
-    height: 50px;
-    line-height: 52px;
-  }
+  background: map-get($colors, darkBlue);
+  background: linear-gradient(
+    90deg,
+    map-get($colors, blue) 0%,
+    map-get($colors, darkPurple) 100%
+  );
+  padding: 0 14px;
+  height: 50px;
+  line-height: 52px;
 
   &__logo {
     width: 50px;
@@ -18,7 +20,7 @@
 
   &__text {
     color: map-get($colors, lightGray);
-    font-family: 'Syncopate';
+    font-family: "Syncopate";
     font-size: map-get($fontSize, headerLarge);
   }
 }

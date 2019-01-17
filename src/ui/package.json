@@ -4,6 +4,7 @@
   "description": "PheEX User Interface",
   "main": "index.js",
   "scripts": {
+    "start": "parcel serve index.html",
     "watch": "parcel watch index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -13,7 +14,11 @@
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",
     "assemble": "~0.3.11",
+    "babel-polyfill": "^6.26.0",
     "es6-shim": "^0.35.4",
+    "localforage": "^1.7.3",
+    "moment": "^2.23.0",
+    "numeral": "^2.0.6",
     "parcel": "^1.10.3",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",

@@ -1,5 +1,22 @@
 .phenotypes {
   width: 100%;
+
+  &__list {
+    &__item {
+      padding: 5px 5px 0px 5px;
+
+      &__name {
+        color: dimgray;
+        font-size: 16px;
+      }
+
+      &__size {
+        padding-left: 10px;
+        font-size: 10px;
+        color: darkgray;
+      }
+    }
+  }
 }
 
 .addPhenotype {
@@ -46,6 +63,32 @@
 
     &--active {
       color: map-get($colors, primary);
+    }
+  }
+}
+
+.addPhenotype {
+  &__selected {
+    &__title {
+      margin-top: 15px;
+    }
+
+    &__phenotypes {
+      &__name {
+        font-size: 18px;
+      }
+
+      &__size {
+        margin-left: 5px;
+        font-size: 10px;
+        color: dimgray;
+      }
+
+      &__modified {
+        margin-left: 5px;
+        font-size: 10px;
+        color: darkgray;
+      }
     }
   }
 }

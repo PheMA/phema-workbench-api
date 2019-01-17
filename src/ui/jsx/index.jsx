@@ -1,3 +1,4 @@
+import "babel-polyfill";
 import React from "react";
 import App from "./containers/app/App.jsx";
 

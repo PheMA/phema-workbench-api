@@ -1,0 +1,10 @@
+.welcome {
+  margin: 20px;
+  width: 100%;
+
+  &__title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}

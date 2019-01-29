@@ -2,6 +2,7 @@ import React from "react";
 import SplitPane from "react-split-pane";
 import Phenotypes from "../phenotypes/Phenotypes.jsx";
 import Connections from "../connections/Connections.jsx";
+import Details from "../details/Details.jsx";
 
 const Main = () => (
   <div className="main">
@@ -16,7 +17,7 @@ const Main = () => (
         <Connections />
       </SplitPane>
       <SplitPane split="horizontal" defaultSize={"65%"} maxSize={-50}>
-        <div>Phenotype Details</div>
+        <Details />
         <div>Execution Log</div>
       </SplitPane>
     </SplitPane>

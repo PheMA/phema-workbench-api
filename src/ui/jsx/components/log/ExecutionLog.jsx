@@ -25,8 +25,10 @@ class ExecutionLog extends React.PureComponent {
   }
 
   render() {
-    const lines = this.state.logLines.map(l => (
-      <div className="log__content__line">{l}</div>
+    const lines = this.state.logLines.map((l, i) => (
+      <div className="log__content__line" key={i}>
+        {l}
+      </div>
     ));
 
     return (

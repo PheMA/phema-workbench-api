@@ -1,11 +1,17 @@
 import React from "react";
+import _ from "lodash";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Toaster, Position, Dialog, Button, Icon } from "@blueprintjs/core";
 import Dropzone from "react-dropzone";
-import ActionHeader from "../common/ActionHeader.jsx";
 import localForage from "localforage";
 import numeral from "numeral";
 import moment from "moment";
+
+import ActionHeader from "../common/ActionHeader.jsx";
+
+import { phenotypeListSelector } from "../../../store/phenotypes/selectors";
+import { fetchPhenotypeList } from "../../../store/phenotypes/actions";
 
 localForage.config({
   driver: localForage.LOCALSTORAGE,
@@ -170,7 +176,7 @@ const PhenotypeUploadQueue = props => {
 };
 
 const PhenotypeList = props => {
-  const data = props.phenotypes ? props.phenotypes : [];
+  const data = _.get(props, "phenotypes", []);
 
   return (
     <div className="phenotypes__list">
@@ -199,6 +205,8 @@ class Phenotypes extends React.PureComponent {
 
   componentDidMount() {
     this.reloadStorage();
+
+    this.props.fetchPhenotypeList();
   }
 
   render() {
@@ -211,7 +219,7 @@ class Phenotypes extends React.PureComponent {
           }}
           addText="Add"
         />
-        <PhenotypeList phenotypes={this.state.phenotypes} />
+        <PhenotypeList phenotypes={this.props.phenotypes} />
         <Dialog
           isOpen={this.state.modalOpen}
           title="UPLOAD PHENOTYPE"
@@ -232,4 +240,17 @@ class Phenotypes extends React.PureComponent {
   }
 }
 
-export default Phenotypes;
+const mapStateToProps = state => ({
+  phenotypes: phenotypeListSelector(state)
+});
+
+const mapDispatchToProps = {
+  fetchPhenotypeList
+};
+
+const ConnectedPhenotypes = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Phenotypes);
+
+export default ConnectedPhenotypes;

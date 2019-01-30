@@ -34,6 +34,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>${version.jetty}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jersey.core</groupId>
             <artifactId>jersey-server</artifactId>
             <version>${version.jersey}</version>
@@ -83,6 +89,12 @@
         <finalName>PheEx</finalName>
         <sourceDirectory>src/api/main</sourceDirectory>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+            </plugin>
+
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -164,7 +176,8 @@
                         <configuration>
                             <transformers>
                                 <!-- add Main-Class to manifest file -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.phema.executer.PheEx</mainClass>
                                 </transformer>
                             </transformers>
@@ -172,6 +185,6 @@
                     </execution>
                 </executions>
             </plugin>
-    </plugins>
+        </plugins>
     </build>
 </project>

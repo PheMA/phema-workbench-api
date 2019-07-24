@@ -17,7 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "es6-shim": "^0.35.4",
     "localforage": "^1.7.3",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.23.0",
     "numeral": "^2.0.6",
     "parcel": "^1.10.3",

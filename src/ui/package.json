@@ -13,7 +13,6 @@
   "dependencies": {
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",
-    "assemble": "~0.3.11",
     "babel-polyfill": "^6.26.0",
     "es6-shim": "^0.35.4",
     "localforage": "^1.7.3",

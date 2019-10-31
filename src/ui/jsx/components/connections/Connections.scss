@@ -3,3 +3,19 @@
     margin-left: 20px;
   }
 }
+
+.cqlProperty {
+  display: flex;
+
+  .bp3-form-group {
+    margin: 10px;
+  }
+
+  div:nth-child(1) {
+    margin-left: 0px;
+  }
+
+  &__button {
+    margin-top: 32px;
+  }
+}

@@ -5,24 +5,30 @@ import Connections from "../connections/Connections.jsx";
 import Details from "../details/Details.jsx";
 import ExecutionLog from "../log/ExecutionLog";
 
-const Main = () => (
-  <div className="main">
-    <SplitPane
-      split="vertical"
-      defaultSize={"25%"}
-      maxSize={-50}
-      className="primary"
-    >
-      <SplitPane split="horizontal" defaultSize={"35%"} maxSize={-50}>
-        <Phenotypes />
-        <Connections />
+const Main = props => {
+  const { localForage, cqlScripts } = props;
+
+  console.log("Rendering main");
+
+  return (
+    <div className="main">
+      <SplitPane
+        split="vertical"
+        defaultSize={"25%"}
+        maxSize={-50}
+        className="primary"
+      >
+        <SplitPane split="horizontal" defaultSize={"35%"} maxSize={-50}>
+          <Phenotypes localForage={localForage} />
+          <Connections />
+        </SplitPane>
+        <SplitPane split="horizontal" defaultSize={"65%"} maxSize={-50}>
+          <Details cqlScripts={cqlScripts} />
+          <ExecutionLog />
+        </SplitPane>
       </SplitPane>
-      <SplitPane split="horizontal" defaultSize={"65%"} maxSize={-50}>
-        <Details />
-        <ExecutionLog />
-      </SplitPane>
-    </SplitPane>
-  </div>
-);
+    </div>
+  );
+};
 
 export default Main;

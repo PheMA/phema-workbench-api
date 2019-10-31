@@ -13,6 +13,7 @@
   "dependencies": {
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",
+    "babel-core": "^6.26.3",
     "babel-polyfill": "^6.26.0",
     "es6-shim": "^0.35.4",
     "localforage": "^1.7.3",
@@ -21,15 +22,17 @@
     "numeral": "^2.0.6",
     "parcel": "^1.10.3",
     "prop-types": "^15.6.2",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
-    "react-dropzone": "^8.0.3",
+    "react": "^16.10",
+    "react-dom": "^16.10",
+    "react-dropzone": "^v10.1.4",
     "react-redux": "^6.0.0",
     "react-split-pane": "^0.1.84",
     "redux": "^4.0.1",
-    "redux-saga": "^1.0.0"
+    "redux-saga": "^1.0.0",
+    "uui": "^1.0.7"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.7.0",
     "eslint": "^5.9.0",
     "sass": "^1.15.1"
   }

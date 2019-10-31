@@ -1,33 +1,71 @@
-import React from "react";
-import { Tabs, Tab, Dialog } from "@blueprintjs/core";
+import React, { useState, useEffect } from "react";
+import {
+  Tabs,
+  Tab,
+  Icon,
+  ContextMenuTarget,
+  Menu,
+  MenuItem
+} from "@blueprintjs/core";
 import Welcome from "./Welcome";
 
-class Details extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedTabId: "welcome"
-    };
-  }
+const ContextMenuCqlHeader = ContextMenuTarget(
+  class CqlTabHeader extends React.Component {
+    renderContextMenu() {
+      // return a single element, or nothing to use default browser behavior
+      return (
+        <Menu>
+          <MenuItem icon="download" onClick={this.handleSave} text="Download" />
+          <MenuItem icon="trash" onClick={this.handleDelete} text="Delete" />
+        </Menu>
+      );
+    }
 
-  handleTabClick(selectedTabId) {
-    this.setState({ selectedTabId });
+    render() {
+      return (
+        <div className="details__cqlTabHeader">
+          <Icon icon="document" /> CQL Script
+        </div>
+      );
+    }
   }
+);
 
-  render() {
-    return (
-      <div className="detailsContainer">
-        <Tabs
-          id="details"
-          selectedTabId={this.state.selectedTabId}
-          onChange={this.handleTabClick.bind(this)}
-          large
-        >
-          <Tab id="welcome" title="Welcome" panel={<Welcome />} />
-        </Tabs>
-      </div>
-    );
-  }
-}
+const renderCqlTabs = tabs => {
+  return tabs.map((tab, index) => (
+    <Tab
+      key={tab.id}
+      id={tab.id}
+      title={<ContextMenuCqlHeader />}
+      panel={<div>Hello</div>}
+    />
+  ));
+};
+
+const Details = props => {
+  const { cqlScripts } = props;
+
+  const [selectedTabId, setSelectedTabId] = useState("welcome");
+
+  const title = (
+    <div className="details__welcome">
+      <Icon icon="info-sign" /> Welcome
+    </div>
+  );
+
+  return (
+    <div className="detailsContainer">
+      <Tabs
+        id="details"
+        selectedTabId={selectedTabId}
+        onChange={setSelectedTabId}
+        large
+      >
+        <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} />
+        {renderCqlTabs(cqlScripts)}
+      </Tabs>
+    </div>
+  );
+};
 
 export default Details;

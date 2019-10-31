@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Toaster, Position, Dialog, Button, Icon } from "@blueprintjs/core";
 import Dropzone from "react-dropzone";
-import localForage from "localforage";
+// import localForage from "localforage";
 import numeral from "numeral";
 import moment from "moment";
 
@@ -13,10 +13,10 @@ import ActionHeader from "../common/ActionHeader.jsx";
 import { phenotypeListSelector } from "../../../store/phenotypes/selectors";
 import { fetchPhenotypeList } from "../../../store/phenotypes/actions";
 
-localForage.config({
-  driver: localForage.LOCALSTORAGE,
-  name: "phex-local"
-});
+// localForage.config({
+//   driver: localForage.LOCALSTORAGE,
+//   name: "phex-local"
+// });
 
 const acceptedFiles = [".zip", ".ZIP"];
 
@@ -84,7 +84,7 @@ class AddPhenotype extends React.PureComponent {
         };
       });
 
-    let phenotypes = await localForage.getItem("phenotypes");
+    let phenotypes = await this.props.localForage.getItem("phenotypes");
 
     if (phenotypes == null) {
       phenotypes = transformFiles(files);
@@ -92,7 +92,7 @@ class AddPhenotype extends React.PureComponent {
       phenotypes = phenotypes.concat(transformFiles(files));
     }
 
-    localForage.setItem("phenotypes", phenotypes);
+    this.props.localForage.setItem("phenotypes", phenotypes);
 
     // clear the queue
     this.setState({
@@ -196,7 +196,7 @@ class Phenotypes extends React.PureComponent {
 
   reloadStorage() {
     // Hack until we have a backend
-    localForage.getItem("phenotypes").then(data => {
+    this.props.localForage.getItem("phenotypes").then(data => {
       this.setState({
         phenotypes: data
       });

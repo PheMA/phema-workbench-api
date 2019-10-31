@@ -7,7 +7,9 @@ import {
   Menu,
   MenuItem
 } from "@blueprintjs/core";
+
 import Welcome from "./Welcome";
+import { CqlWindow } from "../cql";
 
 const ContextMenuCqlHeader = ContextMenuTarget(
   class CqlTabHeader extends React.Component {
@@ -37,7 +39,7 @@ const renderCqlTabs = tabs => {
       key={tab.id}
       id={tab.id}
       title={<ContextMenuCqlHeader />}
-      panel={<div>Hello</div>}
+      panel={<CqlWindow scriptId={tab.id} />}
     />
   ));
 };
@@ -45,7 +47,9 @@ const renderCqlTabs = tabs => {
 const Details = props => {
   const { cqlScripts } = props;
 
-  const [selectedTabId, setSelectedTabId] = useState("welcome");
+  const [selectedTabId, setSelectedTabId] = useState(
+    "db0cdbe0-65ea-46e5-aa08-c033554f3e4c"
+  );
 
   const title = (
     <div className="details__welcome">
@@ -61,7 +65,7 @@ const Details = props => {
         onChange={setSelectedTabId}
         large
       >
-        <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} />
+        {/* <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} /> */}
         {renderCqlTabs(cqlScripts)}
       </Tabs>
     </div>

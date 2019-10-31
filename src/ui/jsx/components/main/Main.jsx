@@ -5,24 +5,37 @@ import Connections from "../connections/Connections.jsx";
 import Details from "../details/Details.jsx";
 import ExecutionLog from "../log/ExecutionLog";
 
+const resized = () => {
+  document.getElementById("phexMain").dispatchEvent(new Event("phex-resized"));
+};
+
 const Main = props => {
   const { localForage, cqlScripts } = props;
 
-  console.log("Rendering main");
-
   return (
-    <div className="main">
+    <div id="phexMain" className="main">
       <SplitPane
         split="vertical"
         defaultSize={"25%"}
         maxSize={-50}
         className="primary"
+        onDragFinished={resized}
       >
-        <SplitPane split="horizontal" defaultSize={"35%"} maxSize={-50}>
+        <SplitPane
+          split="horizontal"
+          defaultSize={"35%"}
+          maxSize={-50}
+          onDragFinished={resized}
+        >
           <Phenotypes localForage={localForage} />
           <Connections />
         </SplitPane>
-        <SplitPane split="horizontal" defaultSize={"65%"} maxSize={-50}>
+        <SplitPane
+          split="horizontal"
+          defaultSize={"65%"}
+          maxSize={-50}
+          onDragFinished={resized}
+        >
           <Details cqlScripts={cqlScripts} />
           <ExecutionLog />
         </SplitPane>

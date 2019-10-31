@@ -1,0 +1,22 @@
+.cqlWindow {
+  &__wrapper {
+    padding: 10px;
+    height: calc(100% - 50px);
+    width: 100%;
+  }
+
+  &__header {
+    &__title {
+      font-family: "Syncopate";
+    }
+
+    &__runner {
+      margin-right: 10px;
+
+      &__label {
+        margin-right: 10px;
+        line-height: 20px;
+      }
+    }
+  }
+}

@@ -1,6 +1,15 @@
 .detailsContainer {
   width: 100%;
 
+  .bp3-tabs {
+    height: 100%;
+  }
+
+  .bp3-tab-panel {
+    height: calc(100% - 40px);
+    margin: 0;
+  }
+
   .bp3-tab {
     margin-left: 20px;
   }

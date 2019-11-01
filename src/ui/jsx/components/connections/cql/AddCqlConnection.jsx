@@ -14,7 +14,7 @@ import uuid from "uuid/v4";
 
 const otherProperty = (prop, index, removeProp, cqlConfig, setCqlConfig) => {
   return (
-    <div className="cqlProperty">
+    <div key={prop.id} className="cqlProperty">
       <FormGroup label="Name" labelInfo="(required)">
         <InputGroup
           id={`${prop.id}-name`}
@@ -28,7 +28,16 @@ const otherProperty = (prop, index, removeProp, cqlConfig, setCqlConfig) => {
         />
       </FormGroup>
       <FormGroup label="Value" labelInfo="(required)">
-        <InputGroup id={`${prop.id}-value`} placeholder="Property value" />
+        <InputGroup
+          id={`${prop.id}-value`}
+          placeholder="Property value"
+          value={prop.value}
+          onChange={e => {
+            const thisProp = cqlConfig.otherProps.find(p => p.id === prop.id);
+            thisProp.value = e.target.value;
+            setCqlConfig(Object.assign({}, cqlConfig));
+          }}
+        />
       </FormGroup>
       <div className="cqlProperty__button">
         <Button minimal={true} icon="cross" onClick={() => removeProp(index)} />
@@ -37,18 +46,48 @@ const otherProperty = (prop, index, removeProp, cqlConfig, setCqlConfig) => {
   );
 };
 
+const validConfig = cqlConfig => {
+  let valid = !!cqlConfig.url && !!cqlConfig.codeProperty;
+
+  cqlConfig.otherProps.forEach(prop => {
+    valid = valid && !!prop.name && !!prop.value;
+  });
+
+  return valid;
+};
+
 const AddCqlConnection = props => {
   const [cqlConfig, setCqlConfig] = useState({
+    name: "",
+    id: uuid(),
     url: "",
     codeProperty: "code",
     otherProps: []
   });
 
-  console.log(cqlConfig);
+  const { setModalOpen, saveConfig } = props;
 
   return (
     <React.Fragment>
       <div className={Classes.DIALOG_BODY}>
+        <FormGroup
+          helperText="Connection name"
+          label="Name"
+          labelFor="cql-evaluate-url"
+          labelInfo="(optional)"
+        >
+          <InputGroup
+            id="cql-evaluate-url"
+            placeholder="Connection name"
+            value={cqlConfig.name}
+            onChange={event => {
+              setCqlConfig(
+                Object.assign({}, cqlConfig, { name: event.target.value })
+              );
+            }}
+          />
+        </FormGroup>
+
         <FormGroup
           helperText="The URL to send the CQL evaluation request"
           label="CQL Evaluation Server"
@@ -118,13 +157,21 @@ const AddCqlConnection = props => {
       </div>
       <div className={Classes.DIALOG_FOOTER}>
         <div className={Classes.DIALOG_FOOTER_ACTIONS}>
-          <Tooltip content="This button is hooked up to close the dialog.">
-            <Button onClick={() => {}}>Close</Button>
-          </Tooltip>
           <Button
-            disabled={!(cqlConfig.url && cqlConfig.codeProperty)}
+            onClick={() => {
+              setModalOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            disabled={!validConfig(cqlConfig)}
             icon="floppy-disk"
             intent={Intent.PRIMARY}
+            onClick={() => {
+              saveConfig("cql", cqlConfig);
+              setModalOpen(false);
+            }}
           >
             Save
           </Button>

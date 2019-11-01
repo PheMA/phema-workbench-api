@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Tabs, Tab, Dialog } from "@blueprintjs/core";
 import ActionHeader from "../common/ActionHeader.jsx";
 
-import AddCqlConnection from "./AddCqlConnection";
+import { AddCqlConnection, CqlConnectionList } from "./cql";
+
+const emptyConfig = () => {
+  return {
+    i2b2: [],
+    omop: [],
+    cql: [],
+    fhir: []
+  };
+};
 
 const ConnectionPanel = props => {
   return null;
 };
 
 const ConnectionContainer = props => {
-  const { selectedTab, setSelectedTab } = props;
+  const { selectedTab, setSelectedTab, connections } = props;
 
   return (
     <div className="connectionContainer">
@@ -21,26 +30,54 @@ const ConnectionContainer = props => {
       >
         <Tab id="i2b2" title="i2b2" panel={<ConnectionPanel />} />
         <Tab id="omop" title="OMOP" panel={<ConnectionPanel />} />
-        <Tab id="cql" title="CQL" panel={<ConnectionPanel />} />
+        <Tab
+          id="cql"
+          title="CQL"
+          panel={<CqlConnectionList connections={connections.cql} />}
+        />
         <Tab id="fhir" disabled title="FHIR" panel={<ConnectionPanel />} />
       </Tabs>
     </div>
   );
 };
 
-const renderAddComponent = selectedTab => {
+const renderAddComponent = (selectedTab, setModalOpen, saveConfig) => {
   switch (selectedTab) {
     case "cql":
-      return <AddCqlConnection />;
+      return (
+        <AddCqlConnection setModalOpen={setModalOpen} saveConfig={saveConfig} />
+      );
     default:
       return null;
   }
 };
 
+const saveConfig = (localForage, setConnections) => (type, config) => {
+  localForage.getItem("connections").then(connections => {
+    let newConnections = connections ? connections : emptyConfig();
+
+    newConnections[type].push(config);
+
+    localForage.setItem("connections", newConnections).then(() => {
+      setConnections(newConnections);
+    });
+  });
+};
+
 const Connections = props => {
+  const { localForage } = props;
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const [selectedTab, setSelectedTab] = useState("cql");
+
+  const [connections, setConnections] = useState(emptyConfig());
+
+  useEffect(() => {
+    localForage.getItem("connections").then(connections => {
+      setConnections(connections ? connections : {});
+    });
+  }, []);
 
   return (
     <div className="connections">
@@ -54,6 +91,7 @@ const Connections = props => {
       <ConnectionContainer
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
+        connections={connections}
       />
       <Dialog
         isOpen={modalOpen}
@@ -63,7 +101,11 @@ const Connections = props => {
           setModalOpen(false);
         }}
       >
-        {renderAddComponent(selectedTab)}
+        {renderAddComponent(
+          selectedTab,
+          setModalOpen,
+          saveConfig(localForage, setConnections)
+        )}
       </Dialog>
     </div>
   );

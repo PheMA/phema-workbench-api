@@ -28,7 +28,7 @@ const Main = props => {
           onDragFinished={resized}
         >
           <Phenotypes localForage={localForage} />
-          <Connections />
+          <Connections localForage={localForage} />
         </SplitPane>
         <SplitPane
           split="horizontal"

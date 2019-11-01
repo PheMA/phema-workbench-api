@@ -19,3 +19,26 @@
     margin-top: 32px;
   }
 }
+
+.cqlConnectionList {
+  width: 100%;
+
+  &__item {
+    padding: 5px 5px 0px 5px;
+
+    &__name {
+      color: dimgray;
+      font-size: 16px;
+
+      a {
+        margin-left: 5px;
+      }
+    }
+
+    &__url {
+      padding-left: 10px;
+      font-size: 10px;
+      color: darkgray;
+    }
+  }
+}

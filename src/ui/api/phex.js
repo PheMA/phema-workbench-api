@@ -1,4 +1,4 @@
-const PHEX_DEFAULT_BASE_URL = "http://localhost:8083/api/v1";
+const PHEX_DEFAULT_BASE_URL = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/v1`;
 
 class PhEx {
   constructor(baseUrl = PHEX_DEFAULT_BASE_URL) {

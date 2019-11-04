@@ -1,16 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.phema.executer</groupId>
+    <groupId>edu.phema</groupId>
     <artifactId>phex</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <name>phex</name>
-    <url>http://maven.apache.org</url>
+    <url>https://projectphema.org</url>
 
     <properties>
-        <version.jersey>2.7</version.jersey>
-        <version.jetty>9.4.17.v20190418</version.jetty>
+        <version.jersey>2.29.1</version.jersey>
+        <version.jetty>9.4.22.v20191022</version.jetty>
     </properties>
 
     <dependencies>
@@ -64,6 +64,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.29.1</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.2.11</version>
@@ -83,22 +89,44 @@
             <artifactId>activation</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+            <version>1.8.0</version>
+        </dependency>
+
+        <!-- ELM to OHDSHI Translator -->
+        <dependency>
+            <groupId>edu.phema</groupId>
+            <artifactId>phema-elm-to-ohdsi</artifactId>
+            <version>0.0.2</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
     <build>
         <finalName>PheEx</finalName>
         <sourceDirectory>src/api/main</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/api/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
+                <configuration>
+                    <source>10</source>
+                    <target>10</target>
+                </configuration>
             </plugin>
 
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.6</version>
+                <version>1.8.0</version>
                 <executions>
                     <execution>
                         <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
@@ -116,6 +144,17 @@
                         <goals>
                             <goal>yarn</goal>
                         </goals>
+                    </execution>
+
+                    <execution>
+                        <id>yarn build</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run</arguments>
+                            <arguments>build</arguments>
+                        </configuration>
                     </execution>
                 </executions>
                 <configuration>

@@ -4,6 +4,9 @@
 
 # PhEX
 
+[![PhEMA](./repo-badge.svg)](https://projectphema.org)
+[![Build Status](https://travis-ci.org/PheMA/phex.svg?branch=master)](https://travis-ci.org/PheMA/phex)
+
 > Phenotype Executer
 
 Desktop application for executing phenotypes represented using the [PhEMA](http://projectphema.org) standard against a

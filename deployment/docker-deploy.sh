@@ -10,4 +10,4 @@ docker push phema-docker-docker.bintray.io/phema-phex:$TRAVIS_TAG
 
 # Notify to slack
 SLACK_MESSAGE="New PhEx <https://bintray.com/beta/#/phema/docker/phema-phex?tab=overview|Docker image> published ($TRAVIS_TAG)"
-curl -X POST --data-urlencode 'payload={"username": "PhEMA Bot", "text": "'"$SLACK_MESSAGE"'", "icon_url": "https://bintray.com/assets/favicon.png"}' $SLACK_WEBHOOK_URL
+curl -X POST --data-urlencode 'payload={"username": "PhEMA Bot", "text": "'"$SLACK_MESSAGE"'", "as_user": false, "icon_url": "https://bintray.com/assets/favicon.png"}' $SLACK_WEBHOOK_URL

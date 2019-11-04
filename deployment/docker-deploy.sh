@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Log in to the Bintray Docker registry
-docker login -u $BINTRAY_USERNAME -p $BINTRAY_API_KEY phema-docker-docker.bintray.io
+echo "$BINTRAY_API_KEY" | docker login -u "$BINTRAY_USERNAME" --password-stdin phema-docker-docker.bintray.io
 
 set -o xtrace
 
@@ -9,5 +9,5 @@ set -o xtrace
 docker push phema-docker-docker.bintray.io/phema-phex:$TRAVIS_TAG
 
 # Notify to slack
-#SLACK_MESSAGE="New eSaude Platform <https://bintray.com/esaude/platform-docker|Docker images> and <https://bintray.com/esaude/apps/esaude-app-platform|offline installer> published ($TRAVIS_TAG)"
-#curl -X POST --data-urlencode 'payload={"username": "eSaude Bintray", "text": "'"$SLACK_MESSAGE"'", "icon_url": "https://bintray.com/assets/favicon.png"}' $SLACK_WEBHOOK_URL
+SLACK_MESSAGE="New PhEx <https://bintray.com/beta/#/phema/docker/phema-phex?tab=overview|Docker image> published ($TRAVIS_TAG)"
+curl -X POST --data-urlencode 'payload={"username": "PhEMA Bot", "text": "'"$SLACK_MESSAGE"'", "icon_url": "https://bintray.com/assets/favicon.png"}' $SLACK_WEBHOOK_URL

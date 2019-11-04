@@ -2,14 +2,14 @@ services:
   - docker
 
 script:
-  - docker build -t "phema-phex:${TRAVIS_TAG:-master}" .
+  - docker build -t "phema-docker-docker.bintray.io/phema-phex:${TRAVIS_TAG:-master}" .
 
 after_script:
   - docker images
 
 deploy:
   provider: script
-  script: ./deployment/docker-deploy.sh
+  script: bash ./deployment/docker-deploy.sh
   skip_cleanup: true
   on:
     tags: true

@@ -10,7 +10,7 @@ const resized = () => {
 };
 
 const Main = props => {
-  const { localForage, cqlScripts } = props;
+  const { localForage, cqlScripts, selectedTab } = props;
 
   return (
     <div id="phexMain" className="main">
@@ -36,7 +36,7 @@ const Main = props => {
           maxSize={-50}
           onDragFinished={resized}
         >
-          <Details cqlScripts={cqlScripts} />
+          <Details cqlScripts={cqlScripts} selectedTab={selectedTab} />
           <ExecutionLog />
         </SplitPane>
       </SplitPane>

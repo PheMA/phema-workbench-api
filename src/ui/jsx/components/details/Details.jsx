@@ -45,11 +45,13 @@ const renderCqlTabs = tabs => {
 };
 
 const Details = props => {
-  const { cqlScripts } = props;
+  const { cqlScripts, selectedTab } = props;
 
-  const [selectedTabId, setSelectedTabId] = useState(
-    "db0cdbe0-65ea-46e5-aa08-c033554f3e4c"
-  );
+  const [selectedTabId, setSelectedTabId] = useState("welcome");
+
+  useEffect(() => {
+    setSelectedTabId(selectedTab);
+  }, [selectedTab]);
 
   const title = (
     <div className="details__welcome">
@@ -65,7 +67,7 @@ const Details = props => {
         onChange={setSelectedTabId}
         large
       >
-        {/* <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} /> */}
+        <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} />
         {renderCqlTabs(cqlScripts)}
       </Tabs>
     </div>

@@ -13,7 +13,7 @@
     "build-css": "parcel build node_modules/monaco-editor/esm/vs/language/css/css.worker.js --no-source-maps",
     "build-html": "parcel build node_modules/monaco-editor/esm/vs/language/html/html.worker.js --no-source-maps",
     "build-ts": "parcel build node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js --no-source-maps",
-    "build-worker": "parcel build node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps"
+    "build-worker": "parcel build -d ../api/main/resources/ui node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps"
   },
   "author": "",
   "license": "MIT",

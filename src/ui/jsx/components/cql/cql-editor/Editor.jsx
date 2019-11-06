@@ -3,6 +3,8 @@ import React from "react";
 import * as monaco from "monaco-editor";
 import uuid from "uuid/v4";
 
+import * as CqlMonarch from "./monarch-cql";
+
 class CqlEditor extends React.Component {
   componentDidMount() {
     this.initMonaco();
@@ -17,20 +19,12 @@ class CqlEditor extends React.Component {
   }
 
   initMonaco() {
+    monaco.languages.register({ id: "cql" });
+
+    monaco.languages.setMonarchTokensProvider("cql", CqlMonarch);
+
     self.MonacoEnvironment = {
       getWorkerUrl: function(moduleId, label) {
-        if (label === "json") {
-          return "./json.worker.js";
-        }
-        if (label === "css") {
-          return "./css.worker.js";
-        }
-        if (label === "html") {
-          return "./html.worker.js";
-        }
-        if (label === "typescript" || label === "javascript") {
-          return "./ts.worker.js";
-        }
         return "./editor.worker.js";
       }
     };
@@ -38,8 +32,9 @@ class CqlEditor extends React.Component {
     this.editor = monaco.editor.create(
       document.getElementById(`cqlEditor__container-${this.containerId}`),
       {
-        value: "function hello() {\n\talert('Hello world!');\n}",
-        language: "javascript"
+        value:
+          "library \"phema-demo\" version '0.0.1'\n\ndefine test:\n  1 + 1",
+        language: "cql"
       }
     );
   }

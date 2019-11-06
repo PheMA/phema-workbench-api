@@ -1,6 +1,12 @@
 services:
   - docker
 
+before_script:
+  - echo "$TRAVIS_TAG" "$TRAVIS_COMMIT"
+  - export SHORT_COMMIT_HASH=$(echo $TRAVIS_COMMIT | cut -c -7)
+  - export FOOTER_FILE_PATH=./src/ui/jsx/components/footer/Footer.jsx
+  - if [ -z $TRAVIS_TAG ]; then sed -i "s/__VERSION__/$SHORT_COMMIT_HASH/g" $FOOTER_FILE_PATH; else sed -i "s/__VERSION__/v$TRAVIS_TAG/g" $FOOTER_FILE_PATH; fi
+
 script:
   - docker build -t "phema-docker-docker.bintray.io/phema-phex:${TRAVIS_TAG:-master}" .
 

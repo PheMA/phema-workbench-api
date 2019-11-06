@@ -9,6 +9,7 @@ const PhExFooter = () => (
         href="http://informatics.mayo.edu/phema/index.php/Main_Page"
       />
     </div>
+    <span className="footer__version">__VERSION__</span>
   </div>
 );
 

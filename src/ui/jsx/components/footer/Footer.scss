@@ -1,14 +1,24 @@
 .footer {
-  &__text {
-    text-align: center;
-    font-family: "Syncopate";
-    font-size: map-get($fontSize, footer);
-    color: map-get($colors, lightGray);
-    background: map-get($colors, darkBlue);
-    background: linear-gradient( 90deg,
+  display: flex;
+  justify-content: center; /* center child elements ("flex items") */
+  position: relative;
+  font-family: "Syncopate";
+  font-size: map-get($fontSize, footer);
+  color: map-get($colors, lightGray);
+  background: map-get($colors, darkBlue);
+  background: linear-gradient(
+    90deg,
     map-get($colors, blue) 0%,
-    map-get($colors, darkPurple) 100%);
-    padding: 10px;
+    map-get($colors, darkPurple) 100%
+  );
+  padding: 10px;
+
+  &__text {
+  }
+
+  &__version {
+    position: absolute;
+    right: 10px;
   }
 
   &__icon {

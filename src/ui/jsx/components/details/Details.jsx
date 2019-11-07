@@ -33,19 +33,27 @@ const ContextMenuCqlHeader = ContextMenuTarget(
   }
 );
 
-const renderCqlTabs = tabs => {
+const renderCqlTabs = (tabs, resized, connections, saveLibrary) => {
   return tabs.map((tab, index) => (
     <Tab
       key={tab.id}
       id={tab.id}
       title={<ContextMenuCqlHeader />}
-      panel={<CqlWindow scriptId={tab.id} />}
+      panel={
+        <CqlWindow
+          scriptId={tab.id}
+          resized={resized}
+          library={tab.library}
+          connections={connections}
+          saveLibrary={saveLibrary}
+        />
+      }
     />
   ));
 };
 
 const Details = props => {
-  const { cqlScripts, selectedTab } = props;
+  const { cqlScripts, selectedTab, resized, connections, saveLibrary } = props;
 
   const [selectedTabId, setSelectedTabId] = useState("welcome");
 
@@ -68,7 +76,7 @@ const Details = props => {
         large
       >
         <Tab key="welcome" id="welcome" title={title} panel={<Welcome />} />
-        {renderCqlTabs(cqlScripts)}
+        {renderCqlTabs(cqlScripts, resized, connections, saveLibrary)}
       </Tabs>
     </div>
   );

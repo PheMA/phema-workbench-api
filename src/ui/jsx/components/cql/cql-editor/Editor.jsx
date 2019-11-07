@@ -29,14 +29,21 @@ class CqlEditor extends React.Component {
       }
     };
 
+    const content = this.props.library
+      ? this.props.library
+      : "library \"phema-demo\" version '0.0.1'\n\ndefine test:\n  1 + 1";
+
     this.editor = monaco.editor.create(
       document.getElementById(`cqlEditor__container-${this.containerId}`),
       {
-        value:
-          "library \"phema-demo\" version '0.0.1'\n\ndefine test:\n  1 + 1",
+        value: content,
         language: "cql"
       }
     );
+
+    this.editor.onKeyUp(() => {
+      this.props.saveLibrary(this.props.scriptId, this.editor.getValue());
+    });
   }
 
   render() {

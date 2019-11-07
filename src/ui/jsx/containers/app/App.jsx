@@ -21,6 +21,34 @@ const addCqlScript = (localForage, setCqlScripts, setSelectedTab) => () => {
   });
 };
 
+const saveLibrary = localForage => (id, library) => {
+  localForage.getItem("cqlScripts").then(scripts => {
+    // const scriptIndex = scripts.findIndex(s => (s.id = id));
+
+    // const newScript = {
+    //   id,
+    //   library
+    // };
+
+    // const newScripts = Array.from(scripts);
+
+    // newScripts.splice(scriptIndex, 1, newScript);
+
+    const newScripts = scripts.map(lib => {
+      if (lib.id == id) {
+        return {
+          id,
+          library
+        };
+      } else {
+        return lib;
+      }
+    });
+
+    localForage.setItem("cqlScripts", newScripts);
+  });
+};
+
 const App = props => {
   const { localForage } = props;
 
@@ -41,6 +69,7 @@ const App = props => {
         addCqlScript={addCqlScript(localForage, setCqlScripts, setSelectedTab)}
       />
       <Main
+        saveLibrary={saveLibrary(localForage)}
         localForage={localForage}
         cqlScripts={cqlScripts}
         selectedTab={selectedTab}

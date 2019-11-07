@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SplitPane from "react-split-pane";
 import Phenotypes from "../phenotypes/Phenotypes.jsx";
 import Connections from "../connections/Connections.jsx";
@@ -10,7 +10,9 @@ const resized = () => {
 };
 
 const Main = props => {
-  const { localForage, cqlScripts, selectedTab } = props;
+  const { localForage, cqlScripts, selectedTab, saveLibrary } = props;
+
+  const [connections, setConnections] = useState([]);
 
   return (
     <div id="phexMain" className="main">
@@ -28,7 +30,10 @@ const Main = props => {
           onDragFinished={resized}
         >
           <Phenotypes localForage={localForage} />
-          <Connections localForage={localForage} />
+          <Connections
+            localForage={localForage}
+            setConnections={setConnections}
+          />
         </SplitPane>
         <SplitPane
           split="horizontal"
@@ -36,7 +41,13 @@ const Main = props => {
           maxSize={-50}
           onDragFinished={resized}
         >
-          <Details cqlScripts={cqlScripts} selectedTab={selectedTab} />
+          <Details
+            saveLibrary={saveLibrary}
+            cqlScripts={cqlScripts}
+            selectedTab={selectedTab}
+            resized={resized}
+            connections={connections}
+          />
           <ExecutionLog />
         </SplitPane>
       </SplitPane>

@@ -75,7 +75,11 @@ const Connections = props => {
 
   useEffect(() => {
     localForage.getItem("connections").then(connections => {
-      setConnections(connections ? connections : emptyConfig());
+      const newConnections = connections ? connections : emptyConfig();
+      setConnections(newConnections);
+
+      // Set the connections in the main window
+      props.setConnections(newConnections);
     });
   }, []);
 

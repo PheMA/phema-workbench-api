@@ -25,9 +25,16 @@ class PhEx {
   }
 
   async run(url, body, headers) {
-    return this.post(url, body, headers).then(
-      res => res.json() // FIXME: Do XML when appropriate
-    );
+    return this.post(url, body, headers).then(res => {
+      if (!res.ok) {
+        return Promise.resolve({
+          status: res.status,
+          text: res.statusText
+        });
+      }
+
+      return res.json(); // FIXME: Do XML when appropriate
+    });
   }
 
   async post(url, body, headers) {

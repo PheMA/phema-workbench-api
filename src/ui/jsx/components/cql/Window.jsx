@@ -19,10 +19,22 @@ const execute = (setResult, connections, library) => connectionId => {
   phexApi
     .run(connection.url, body, { "Content-Type": "application/json" })
     .then(result => {
-      setResult({
-        type: "json",
-        value: result
-      });
+      if (result.status) {
+        // FIXME: this is not robust
+        setResult({
+          type: "error",
+          status: result.status,
+          text: result.text
+        });
+      } else {
+        setResult({
+          type: "json",
+          value: result
+        });
+      }
+    })
+    .catch(e => {
+      console.log("Error", e);
     });
 };
 

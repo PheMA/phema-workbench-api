@@ -24,8 +24,24 @@ class PhEx {
     return this.get(`${this.baseUrl}/phenotype`).then(res => res.json());
   }
 
-  async get(url) {
-    return fetch(url);
+  async run(url, body, headers) {
+    return this.post(url, body, headers).then(
+      res => res.json() // FIXME: Do XML when appropriate
+    );
+  }
+
+  async post(url, body, headers) {
+    return fetch(url, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers
+    });
+  }
+
+  async get(url, headers) {
+    return fetch(url, {
+      headers
+    });
   }
 }
 

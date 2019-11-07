@@ -5,12 +5,16 @@
 
     &__pane {
       position: relative;
-      height: calc(100% - 50px);
+      height: calc(100% - 60px);
       width: 100%;
     }
   }
 
   &__header {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
     &__title {
       font-family: "Syncopate";
     }
@@ -24,4 +28,9 @@
       }
     }
   }
+}
+
+.cqlResults {
+  height: 100%;
+  overflow: scroll;
 }

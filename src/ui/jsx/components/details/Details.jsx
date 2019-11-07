@@ -53,6 +53,8 @@ const renderCqlTabs = (tabs, resized, connections, saveLibrary) => {
 };
 
 const Details = props => {
+  // console.log("Details", props);
+
   const { cqlScripts, selectedTab, resized, connections, saveLibrary } = props;
 
   const [selectedTabId, setSelectedTabId] = useState("welcome");

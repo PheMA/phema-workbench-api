@@ -1,5 +1,5 @@
 import CqlWindow from "./Window";
-import CqlResults from "./CqlResults";
+import CqlResult from "./CqlResult";
 import Header from "./Header";
 
-export { CqlWindow, CqlResults, Header };
+export { CqlWindow, CqlResult, Header };

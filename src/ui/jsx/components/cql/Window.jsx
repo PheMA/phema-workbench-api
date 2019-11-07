@@ -3,23 +3,44 @@ import SplitPane from "react-split-pane";
 
 import PhEx from "../../../api/phex";
 import { CqlEditor } from "./cql-editor";
-import { Header, CqlResults } from "./";
+import { Header, CqlResult } from "./";
 
-const execute = setResults => (library, backend) => {};
+const execute = (setResult, connections, library) => connectionId => {
+  const connection = connections.cql.find(conn => conn.id == connectionId);
+
+  const phexApi = new PhEx();
+
+  const body = {};
+
+  body[connection.codeProperty] = library;
+
+  // TODO: add extra fields
+
+  phexApi
+    .run(connection.url, body, { "Content-Type": "application/json" })
+    .then(result => {
+      setResult({
+        type: "json",
+        value: result
+      });
+    });
+};
 
 const CqlWindow = props => {
+  //console.log("Window", props);
+
   const { scriptId, resized, connections, saveLibrary, library } = props;
 
-  const [results, setResults] = useState({
-    type: "json",
-    value: "{ 'test': 123}"
-  });
+  const [result, setResult] = useState(undefined);
 
-  const width = results ? "50%" : "100%";
+  const width = result ? "50%" : "100%";
 
   return (
     <div className="cqlWindow__wrapper">
-      <Header connections={connections} execute={execute(setResults)} />
+      <Header
+        connections={connections}
+        execute={execute(setResult, connections, library)}
+      />
       <div className="cqlWindow__wrapper__pane">
         <SplitPane
           split="vertical"
@@ -32,7 +53,7 @@ const CqlWindow = props => {
             saveLibrary={saveLibrary}
             library={library}
           />
-          <CqlResults results={results} />
+          <CqlResult result={result} />
         </SplitPane>
       </div>
     </div>

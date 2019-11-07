@@ -52,7 +52,10 @@ const renderAddComponent = (selectedTab, setModalOpen, saveConfig) => {
   }
 };
 
-const saveConfig = (localForage, setConnections) => (type, config) => {
+const saveConfig = (localForage, setConnections, setGlobalConnections) => (
+  type,
+  config
+) => {
   localForage.getItem("connections").then(connections => {
     let newConnections = connections ? connections : emptyConfig();
 
@@ -60,6 +63,9 @@ const saveConfig = (localForage, setConnections) => (type, config) => {
 
     localForage.setItem("connections", newConnections).then(() => {
       setConnections(newConnections);
+
+      // Set the connections in the main window
+      setGlobalConnections(newConnections);
     });
   });
 };
@@ -108,7 +114,7 @@ const Connections = props => {
         {renderAddComponent(
           selectedTab,
           setModalOpen,
-          saveConfig(localForage, setConnections)
+          saveConfig(localForage, setConnections, props.setConnections)
         )}
       </Dialog>
     </div>

@@ -21,19 +21,8 @@ const addCqlScript = (localForage, setCqlScripts, setSelectedTab) => () => {
   });
 };
 
-const saveLibrary = localForage => (id, library) => {
+const saveLibrary = (localForage, setCqlScripts) => (id, library) => {
   localForage.getItem("cqlScripts").then(scripts => {
-    // const scriptIndex = scripts.findIndex(s => (s.id = id));
-
-    // const newScript = {
-    //   id,
-    //   library
-    // };
-
-    // const newScripts = Array.from(scripts);
-
-    // newScripts.splice(scriptIndex, 1, newScript);
-
     const newScripts = scripts.map(lib => {
       if (lib.id == id) {
         return {
@@ -45,7 +34,9 @@ const saveLibrary = localForage => (id, library) => {
       }
     });
 
-    localForage.setItem("cqlScripts", newScripts);
+    localForage.setItem("cqlScripts", newScripts).then(() => {
+      setCqlScripts(newScripts);
+    });
   });
 };
 
@@ -69,7 +60,7 @@ const App = props => {
         addCqlScript={addCqlScript(localForage, setCqlScripts, setSelectedTab)}
       />
       <Main
-        saveLibrary={saveLibrary(localForage)}
+        saveLibrary={saveLibrary(localForage, setCqlScripts)}
         localForage={localForage}
         cqlScripts={cqlScripts}
         selectedTab={selectedTab}

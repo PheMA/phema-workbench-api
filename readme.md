@@ -6,6 +6,8 @@
 
 [![PhEMA](./repo-badge.svg)](https://projectphema.org)
 [![Build Status](https://travis-ci.org/PheMA/phex.svg?branch=master)](https://travis-ci.org/PheMA/phex)
+[![Download](https://img.shields.io/badge/dynamic/json.svg?label=latest&query=name&url=https://bintray.com/api/v1/packages/phema/docker/phema-phex/versions/_latest) ](https://bintray.com/beta/#/phema/docker/phema-phex?tab=overview)
+
 
 > Phenotype Executer
 

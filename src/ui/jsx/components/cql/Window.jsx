@@ -13,25 +13,14 @@ const execute = (setResult, connections, library) => connectionId => {
   const body = {};
 
   body[connection.codeProperty] = library;
-
-  // TODO: add extra fields
+  connection.otherProps.forEach(prop => {
+    body[prop.name] = prop.value;
+  });
 
   phexApi
     .run(connection.url, body, { "Content-Type": "application/json" })
     .then(result => {
-      if (result.status) {
-        // FIXME: this is not robust
-        setResult({
-          type: "error",
-          status: result.status,
-          text: result.text
-        });
-      } else {
-        setResult({
-          type: "json",
-          value: result
-        });
-      }
+      setResult(result);
     })
     .catch(e => {
       console.log("Error", e);

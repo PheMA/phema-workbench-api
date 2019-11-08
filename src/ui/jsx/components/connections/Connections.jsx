@@ -1,14 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { Tabs, Tab, Dialog } from "@blueprintjs/core";
 import ActionHeader from "../common/ActionHeader.jsx";
+import uuid from "uuid/v4";
 
 import { AddCqlConnection, CqlConnectionList } from "./cql";
+
+const defaultCQLConnections = () => {
+  return [
+    {
+      name: "PhEMA ELM Translator",
+      id: uuid(),
+      url: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/v1/elm`,
+      codeProperty: "code",
+      otherProps: []
+    },
+    {
+      name: "PhEMA OMOP Cohort Definition Translator",
+      id: uuid(),
+      url: `${window.location.protocol}//${window.location.hostname}:${window.location.port}/api/v1/omop/cohortdefinition`,
+      codeProperty: "code",
+      otherProps: [
+        {
+          id: uuid(),
+          name: "omopServerUrl",
+          value: "http://omop.phema.science/WebAPI/"
+        },
+        {
+          id: uuid(),
+          name: "name",
+          value: "In Initial Population"
+        },
+        {
+          id: uuid(),
+          name: "source",
+          value: "OHDSI-CDMV5"
+        }
+      ]
+    }
+  ];
+};
 
 const emptyConfig = () => {
   return {
     i2b2: [],
     omop: [],
-    cql: [],
+    cql: defaultCQLConnections(),
     fhir: []
   };
 };

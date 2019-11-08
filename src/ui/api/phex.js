@@ -25,15 +25,33 @@ class PhEx {
   }
 
   async run(url, body, headers) {
-    return this.post(url, body, headers).then(res => {
-      if (!res.ok) {
-        return Promise.resolve({
-          status: res.status,
-          text: res.statusText
-        });
+    return this.post(url, body, headers).then(async res => {
+      let body, type;
+      if (res.headers.get("Content-Type") === "application/json") {
+        body = await res.json();
+        type = "json";
+      } else {
+        if (res.headers.get("Content-Type") === "application/xml") {
+          body = await res.text();
+          type = "xml";
+        } else {
+          body = await res.text();
+          type = "xml";
+        }
+
+        if (!res.ok) {
+          body = {
+            status: res.status,
+            statusText: res.statusText
+          };
+        }
       }
 
-      return res.json(); // FIXME: Do XML when appropriate
+      return {
+        ok: res.ok,
+        type,
+        body
+      };
     });
   }
 

@@ -5,6 +5,18 @@ import uuid from "uuid/v4";
 
 import * as CqlMonarch from "./monarch-cql";
 
+const defaultCQL = () => {
+  return `using QUICK
+
+valueset "Diabetes": '2.16.840.1.113883.3.464.1003.103.12.1001'
+
+context Patient
+
+define "In Initial Population":
+  ["Condition": "Diabetes"] C
+`;
+};
+
 class CqlEditor extends React.Component {
   componentDidMount() {
     this.initMonaco();
@@ -12,6 +24,9 @@ class CqlEditor extends React.Component {
     document.getElementById("phexMain").addEventListener("phex-resized", () => {
       this.editor.layout();
     });
+
+    // Save the initial value
+    this.props.saveLibrary(this.props.scriptId, this.editor.getValue());
   }
 
   componentDidUpdate(prevProps) {
@@ -29,9 +44,7 @@ class CqlEditor extends React.Component {
       }
     };
 
-    const content = this.props.library
-      ? this.props.library
-      : "library \"phema-demo\" version '0.0.1'\n\ndefine test:\n  1 + 1";
+    const content = this.props.library ? this.props.library : defaultCQL();
 
     this.editor = monaco.editor.create(
       document.getElementById(`cqlEditor__container-${this.containerId}`),

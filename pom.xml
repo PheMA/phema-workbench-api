@@ -95,11 +95,11 @@
             <version>1.8.0</version>
         </dependency>
 
-        <!-- ELM to OHDSHI Translator -->
+        <!-- ELM to OHDSI Translator -->
         <dependency>
             <groupId>edu.phema</groupId>
             <artifactId>phema-elm-to-ohdsi</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.6</version>
             <type>jar</type>
         </dependency>
     </dependencies>
@@ -216,7 +216,7 @@
                             <transformers>
                                 <!-- add Main-Class to manifest file -->
                                 <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.phema.executer.PheEx</mainClass>
                                 </transformer>
                             </transformers>

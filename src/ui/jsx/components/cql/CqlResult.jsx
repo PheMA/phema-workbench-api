@@ -10,26 +10,27 @@ const CqlResult = props => {
     return null;
   }
 
-  let resultComp;
+  if (!result.ok) {
+    return (
+      <NonIdealState
+        icon="error"
+        title={`Response code ${result.body.status}`}
+        description={result.body.statusText}
+      />
+    );
+  }
 
+  let resultComp;
   if (result.type === "json") {
     resultComp = (
       <ReactJson
         displayObjectSize={false}
         displayDataTypes={false}
-        src={result.value}
-      />
-    );
-  } else if (result.type === "error") {
-    resultComp = (
-      <NonIdealState
-        icon="error"
-        title={`Response code ${result.status}`}
-        description={result.text}
+        src={result.body}
       />
     );
   } else {
-    resultComp = <div>result.value</div>;
+    resultComp = <div>{result.value}</div>;
   }
 
   return <div className="cqlResults">{resultComp}</div>;

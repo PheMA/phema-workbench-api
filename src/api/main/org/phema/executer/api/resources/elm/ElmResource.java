@@ -6,12 +6,6 @@ import edu.phema.elm_to_omop.api.CqlToElmTranslator;
 
 @Path("elm")
 public class ElmResource {
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getElmJson() {
-        return "{ \"test\": 123 }";
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

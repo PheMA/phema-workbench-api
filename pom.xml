@@ -100,7 +100,6 @@
             <groupId>edu.phema</groupId>
             <artifactId>phema-elm-to-ohdsi</artifactId>
             <version>0.0.7</version>
-            <type>jar</type>
         </dependency>
     </dependencies>
 

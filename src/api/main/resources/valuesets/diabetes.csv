@@ -1,0 +1,10 @@
+value_set_oid,value_set_name,code,description,code_system,code_system_version,code_system_oid,tty
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,45917083,controlled type 1 diabetes with neuropathy,CIEL,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,45948882,controlled type 1 diabetes with renal manifestation,CIEL,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,37016767,diabetic autonomic neuropathy due to type 1 diabetes mellitus,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,4225656,diabetic cataract associated with type 1 diabetes mellitus,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,45769832,diabetic dermopathy due to type 1 diabetic mellitus,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,373999,diabetic oculopathy associated with type 1 diabetes mellitus,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,201254,type 1 diabetic mellitus,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,4099215,type 1 diabetes mellitus maturity onset,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN
+2.16.840.1.113883.3.464.1003.103.12.1001,Diabetes,4096668,type 1 diabetes mellitus with gangrene,SNOMEDCT,2018-09,2.16.840.1.113883.6.96,FN

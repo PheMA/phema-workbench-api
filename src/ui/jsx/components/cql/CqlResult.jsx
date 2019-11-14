@@ -3,6 +3,8 @@ import ReactJson from "react-json-view";
 
 import { NonIdealState } from "@blueprintjs/core";
 
+import SqlResult from "./SqlResult";
+
 const CqlResult = props => {
   const { result } = props;
 
@@ -22,13 +24,17 @@ const CqlResult = props => {
 
   let resultComp;
   if (result.type === "json") {
-    resultComp = (
-      <ReactJson
-        displayObjectSize={false}
-        displayDataTypes={false}
-        src={result.body}
-      />
-    );
+    if (result.body.templateSql) {
+      resultComp = <SqlResult sql={result.body.templateSql} />;
+    } else {
+      resultComp = (
+        <ReactJson
+          displayObjectSize={false}
+          displayDataTypes={false}
+          src={result.body}
+        />
+      );
+    }
   } else {
     resultComp = <div>{result.value}</div>;
   }

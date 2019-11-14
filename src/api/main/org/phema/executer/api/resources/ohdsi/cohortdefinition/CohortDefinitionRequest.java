@@ -19,6 +19,9 @@ public class CohortDefinitionRequest {
     @JsonProperty("source")
     private String source;
 
+    @JsonProperty("targetDialect")
+    private String targetDialect;
+
     public String getCode() {
         return code;
     }
@@ -49,5 +52,13 @@ public class CohortDefinitionRequest {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public String getTargetDialect() {
+        return targetDialect;
+    }
+
+    public void setTargetDialect(String targetDialect) {
+        this.targetDialect = targetDialect;
     }
 }

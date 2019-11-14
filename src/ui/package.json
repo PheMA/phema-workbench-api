@@ -32,6 +32,7 @@
     "monaco-editor": "^0.18.1",
     "numeral": "^2.0.6",
     "parcel": "^1.10.3",
+    "prism-react-renderer": "^1.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.2.0",
     "react-dom": "^15.3.0 || 16",

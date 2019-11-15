@@ -20,10 +20,10 @@ import java.util.EnumSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PheEx {
+public class PhEx {
     public static void main(String[] args) {
         try {
-            new PheEx().run();
+            new PhEx().run();
         } catch (Throwable t) {
             t.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class PheEx {
             server.start();
             server.join();
         } catch (Exception ex) {
-            Logger.getLogger(PheEx.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PhEx.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             server.destroy();
         }

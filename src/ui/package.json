@@ -1,7 +1,7 @@
 {
   "name": "phex",
   "version": "1.0.0",
-  "description": "PheEX User Interface",
+  "description": "PhEx User Interface",
   "main": "dist/index.js",
   "scripts": {
     "start": "yarn run build-monaco-workers && parcel --port 8989 serve -d ../api/main/resources/ui index.html",

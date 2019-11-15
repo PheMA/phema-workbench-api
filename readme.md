@@ -97,7 +97,7 @@ When you're done making your changes, you can build a new fat jar by running:
 mvn package
 ```
 
-This will create `target/PheEx.jar`, which will contain all the dependencies and can be run as described in the **QuickStart**
+This will create `target/PhEx.jar`, which will contain all the dependencies and can be run as described in the **QuickStart**
 section above.
 
 ## Acknowledgements

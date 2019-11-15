@@ -11,6 +11,6 @@ RUN mvn package
 
 FROM adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine-slim
 
-COPY --from=builder /opt/phema/phex/target/PheEx.jar /opt/phema/phex/PheEx.jar
+COPY --from=builder /opt/phema/phex/target/PhEx.jar /opt/phema/phex/PhEx.jar
 WORKDIR /opt/phema/phex
-CMD ["java", "-jar", "PheEx.jar"]
+CMD ["java", "-jar", "PhEx.jar"]

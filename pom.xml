@@ -186,7 +186,7 @@
     </dependencies>
 
     <build>
-        <finalName>PheEx</finalName>
+        <finalName>PhEx</finalName>
         <sourceDirectory>src/api/main</sourceDirectory>
         <resources>
             <resource>
@@ -257,7 +257,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.phema.executer.PheEx</mainClass>
+                    <mainClass>org.phema.executer.PhEx</mainClass>
                 </configuration>
             </plugin>
 
@@ -298,7 +298,7 @@
                                 <!-- add Main-Class to manifest file -->
                                 <transformer
                                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.phema.executer.PheEx</mainClass>
+                                    <mainClass>org.phema.executer.PhEx</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

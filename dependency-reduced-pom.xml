@@ -4,7 +4,7 @@
   <groupId>edu.phema</groupId>
   <artifactId>phex</artifactId>
   <name>phex</name>
-  <version>0.1.0-SNAPSHOT</version>
+  <version>0.2.9-SNAPSHOT</version>
   <url>https://projectphema.org</url>
   <build>
     <sourceDirectory>src/api/main</sourceDirectory>
@@ -108,12 +108,34 @@
                   <mainClass>org.phema.executer.PheEx</mainClass>
                 </transformer>
               </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
             </configuration>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
+  <repositories>
+    <repository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>http://repo.maven.apache.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>phema-bintray</id>
+      <name>phema-bintray</name>
+      <url>https://dl.bintray.com/phema/maven</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -124,6 +146,9 @@
   </dependencies>
   <properties>
     <version.jersey>2.29.1</version.jersey>
+    <ohdsi.circe.version>1.7.0</ohdsi.circe.version>
+    <jaxb.version>2.3.1</jaxb.version>
+    <ohdsi.webapi.version>2.6.0</ohdsi.webapi.version>
     <version.jetty>9.4.22.v20191022</version.jetty>
   </properties>
 </project>

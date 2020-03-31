@@ -13,16 +13,17 @@
     "build-css": "parcel build node_modules/monaco-editor/esm/vs/language/css/css.worker.js --no-source-maps",
     "build-html": "parcel build node_modules/monaco-editor/esm/vs/language/html/html.worker.js --no-source-maps",
     "build-ts": "parcel build node_modules/monaco-editor/esm/vs/language/typescript/ts.worker.js --no-source-maps",
-    "build-worker": "parcel build -d ../api/main/resources/ui node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps"
+    "build-worker": "parcel build -d ../api/main/resources/ui node_modules/monaco-editor/esm/vs/editor/editor.worker.js --no-source-maps",
+    "testing": "parcel"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@babel/core": "^7",
+    "@babel/polyfill": "^7",
     "@blueprintjs/core": "^3.10.0",
     "@blueprintjs/icons": "^3.4.0",
     "@blueprintjs/select": "^3.11.1",
-    "babel-core": "^6.26.3",
-    "babel-polyfill": "^6.26.0",
     "es6-shim": "^0.35.4",
     "jsoneditor": "^7.1.0",
     "jsoneditor-react": "^2.0.0",
@@ -31,7 +32,6 @@
     "moment": "^2.23.0",
     "monaco-editor": "^0.18.1",
     "numeral": "^2.0.6",
-    "parcel": "^1.10.3",
     "prism-react-renderer": "^1.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.2.0",
@@ -45,8 +45,9 @@
     "uui": "^1.0.7"
   },
   "devDependencies": {
+    "parcel": "^1.12.4",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^5.9.0",
+    "eslint": "^6.8.0",
     "sass": "^1.15.1"
   }
 }

@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.phema</groupId>
     <artifactId>phex</artifactId>
@@ -10,7 +9,7 @@
 
     <properties>
         <version.jersey>2.29.1</version.jersey>
-        <version.jetty>9.4.22.v20191022</version.jetty>
+        <version.jetty>9.4.27.v20200227</version.jetty>
         <ohdsi.webapi.version>2.6.0</ohdsi.webapi.version>
         <ohdsi.circe.version>1.7.0</ohdsi.circe.version>
         <jaxb.version>2.3.1</jaxb.version>
@@ -20,7 +19,7 @@
         <repository>
             <id>central</id>
             <name>Central Repository</name>
-            <url>http://repo.maven.apache.org/maven2/</url>
+            <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
         <repository>
             <id>phema-bintray</id>
@@ -111,11 +110,18 @@
             <version>1.8.0</version>
         </dependency>
 
+        <!-- ELM utils -->
+        <dependency>
+            <groupId>edu.phema</groupId>
+            <artifactId>elm-utils</artifactId>
+            <version>0.0.10</version>
+        </dependency>
+
         <!-- ELM to OHDSI Translator -->
         <dependency>
             <groupId>edu.phema</groupId>
             <artifactId>phema-elm-to-ohdsi</artifactId>
-            <version>0.1.2</version>
+            <version>0.3.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.glassfish.jersey.core</groupId>
@@ -239,8 +245,8 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v10.13.0</nodeVersion>
-                    <yarnVersion>v1.12.3</yarnVersion>
+                    <nodeVersion>v12.16.1</nodeVersion>
+                    <yarnVersion>v1.22.4</yarnVersion>
                     <workingDirectory>src/ui</workingDirectory>
                 </configuration>
             </plugin>
@@ -295,11 +301,9 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer
-                                  implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
                                 <!-- add Main-Class to manifest file -->
-                                <transformer
-                                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.phema.executer.PhEx</mainClass>
                                 </transformer>
                             </transformers>

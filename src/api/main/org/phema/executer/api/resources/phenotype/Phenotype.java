@@ -5,7 +5,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.Date;
 
 public class Phenotype {
-  public Phenotype(int id, String name, Date modified, int size) {
+  public Phenotype() {
+  }
+
+  public Phenotype(String id, String name, Date modified, int size) {
     this.id = id;
     this.name = name;
     this.modified = modified;
@@ -13,7 +16,7 @@ public class Phenotype {
   }
 
   @JsonProperty("id")
-  private int id;
+  private String id;
 
   @JsonProperty("name")
   private String name;
@@ -24,11 +27,11 @@ public class Phenotype {
   @JsonProperty("size")
   private int size;
 
-  public int getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(String id) {
     this.id = id;
   }
 

@@ -11,6 +11,7 @@ import java.io.*;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.logging.Logger;
+import java.util.UUID;
 
 @Path("phenotype")
 public class PhenotypeResource {
@@ -32,12 +33,14 @@ public class PhenotypeResource {
     try {
       fileName = fileFormDataContentDisposition.getFileName();
 
-      // Append timestamp to filename
+      // Append timestamp and UUID to filename
       Timestamp timestamp = new Timestamp(System.currentTimeMillis());
       Instant instant = timestamp.toInstant();
       String ext = FilenameUtils.getExtension(fileName);
       String name = FilenameUtils.getBaseName(fileName);
-      fileName = name + ".[" + instant + "]." + ext;
+      UUID uuid = UUID.randomUUID();
+
+      fileName = name + ".ID[" + uuid + "].TS[" + instant.getEpochSecond() + "]." + ext;
 
       byte[] buffer = new byte[fileInputStream.available()];
       fileInputStream.read(buffer);

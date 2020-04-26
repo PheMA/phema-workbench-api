@@ -1,28 +1,56 @@
 package org.phema.executer.api.resources.phenotype;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 
+import java.io.File;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 public class PhenotypeList {
-  public PhenotypeList() {
-    entries = new ArrayList<Phenotype>();
-
-    // For now, just add a bunch of dummy data
-    // eventually read these from a database or the filesystem
-    entries.add(new Phenotype(1, "BHP", new Date(1548819064), 2519));
-    entries.add(new Phenotype(2, "Cataracts", new Date(1548819072), 88190));
-    entries.add(new Phenotype(3, "Dementia", new Date(1548819077), 548));
-    entries.add(new Phenotype(4, "Diabetic Retinopathy", new Date(1548819083), 88190));
-    entries.add(new Phenotype(5, "Resistant hypertension", new Date(1548819089), 881908));
-    entries.add(new Phenotype(6, "Sickle Cell Disease", new Date(1548819096), 15488));
-  }
-
   @JsonProperty("entries")
   private ArrayList<Phenotype> entries;
 
+  public PhenotypeList() {
+    entries = getEntries();
+  }
+
+  private Phenotype buildPhenotype(String fileName) {
+    Phenotype p = new Phenotype();
+
+    // FIXME: We should probably inspect some kind of manifest here
+    // instead of just using the filename
+
+    ArrayList<String> fileNameParts = new ArrayList<>();
+    for (String part : fileName.split("\\.")) {
+      if (part.startsWith("ID[")) {
+        p.setId(StringUtils.substringBetween(part, "[", "]"));
+      } else if (part.startsWith("TS[")) {
+        p.setModified(new Date(Integer.parseInt(StringUtils.substringBetween(part, "[", "]"))));
+      } else {
+        fileNameParts.add(part);
+      }
+    }
+
+    p.setName(String.join(".", fileNameParts));
+
+    return p;
+  }
+
   public ArrayList<Phenotype> getEntries() {
-    return entries;
+    ArrayList<Phenotype> list = new ArrayList<>();
+
+    String phenotypePath = System.getProperty("phex.phenotype_directory");
+
+    File f = new File(phenotypePath);
+    String[] pathnames = f.list();
+
+    for (String pathname : pathnames) {
+      list.add(buildPhenotype(pathname));
+    }
+
+    return list;
   }
 }

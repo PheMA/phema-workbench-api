@@ -16,6 +16,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
 import javax.servlet.DispatcherType;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URI;
@@ -28,6 +29,7 @@ import java.util.logging.Logger;
 public class PhEx {
   public static Logger logger = Logger.getLogger(PhEx.class.getSimpleName());
 
+  public static int PHEX_DEFAULT_PORT = 8083;
   public static String PHEX_DEFAULT_PROPERTY_FILE_NAME = "phex.properties";
   public static String PHEX_DEFAULT_PROPERTY_FILE_PATH = "/opt/phema/phex/" + PHEX_DEFAULT_PROPERTY_FILE_NAME;
 
@@ -39,6 +41,16 @@ public class PhEx {
     }
   }
 
+  public void setup() {
+    // Make sure phenotype directory exists and try to create it if not
+    String phenotypePath = System.getProperty("phex.phenotype_directory");
+    File directory = new File(phenotypePath);
+    if (!directory.exists()) {
+      logger.info("Creating phenotype directory: " + phenotypePath);
+      directory.mkdirs();
+    }
+  }
+
   public void loadProperties() {
     // Store the current set of properties
     Properties p = new Properties(System.getProperties());
@@ -46,7 +58,7 @@ public class PhEx {
     FileInputStream propFile;
 
     // First check for explicit properties file path
-    String explicitPath = p.getProperty("phex.phenotype_directory");
+    String explicitPath = p.getProperty("phex.properties_file");
     if (explicitPath != null && !explicitPath.isEmpty()) {
       logger.info("Loading properties from: " + explicitPath);
       try {
@@ -93,7 +105,9 @@ public class PhEx {
     loadProperties();
     System.getProperties().list(System.out);
 
-    Server server = new Server(8083);
+    setup();
+
+    Server server = new Server(PHEX_DEFAULT_PORT);
     HandlerList handlers = new HandlerList();
 
     ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -137,6 +151,7 @@ public class PhEx {
 
     try {
       server.start();
+      logger.info("Started PhEX API listening on port: " + PHEX_DEFAULT_PORT);
       server.join();
     } catch (Exception ex) {
       logger.log(Level.SEVERE, null, ex);

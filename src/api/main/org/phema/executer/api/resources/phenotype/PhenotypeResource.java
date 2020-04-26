@@ -1,17 +1,20 @@
 package org.phema.executer.api.resources.phenotype;
 
+import org.apache.commons.io.FilenameUtils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.logging.Logger;
 
 @Path("phenotype")
 public class PhenotypeResource {
+  public Logger logger = Logger.getLogger(PhenotypeResource.class.getSimpleName());
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
@@ -22,40 +25,42 @@ public class PhenotypeResource {
   @POST
   @Consumes(MediaType.MULTIPART_FORM_DATA)
   public Response uploadZippedFile(
-    @FormDataParam("uploadFile") InputStream fileInputStream,
-    @FormDataParam("uploadFile") FormDataContentDisposition fileFormDataContentDisposition) {
-    // local variables
-    String fileName = null;
-    String uploadFilePath = null;
+    @FormDataParam("phenotype") InputStream fileInputStream,
+    @FormDataParam("phenotype") FormDataContentDisposition fileFormDataContentDisposition) {
 
-//    try {
-//      fileName = fileFormDataContentDisposition.getFileName();
-//
-//      OutputStream outputStream = null;
-//      String qualifiedUploadFilePath = UPLOAD_FILE_SERVER + fileName;
-//
-//      try {
-//        outputStream = new FileOutputStream(new File(qualifiedUploadFilePath));
-//        int read = 0;
-//        byte[] bytes = new byte[1024];
-//        while ((read = inputStream.read(bytes)) != -1) {
-//          outputStream.write(bytes, 0, read);
-//        }
-//        outputStream.flush();
-//      } catch (IOException ioe) {
-//        ioe.printStackTrace();
-//      } finally {
-//        //release resource, if any
-//        outputStream.close();
-//      }
-//
-//
-//    } catch (IOException ioe) {
-//      ioe.printStackTrace();
-//    } finally {
-//      // release resources, if any
-//    }
-//    return Response.ok("File uploaded successfully at " + uploadFilePath).build();
-    return null;
+    String fileName = null;
+    try {
+      fileName = fileFormDataContentDisposition.getFileName();
+
+      // Append timestamp to filename
+      Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+      Instant instant = timestamp.toInstant();
+      String ext = FilenameUtils.getExtension(fileName);
+      String name = FilenameUtils.getBaseName(fileName);
+      fileName = name + ".[" + instant + "]." + ext;
+
+      byte[] buffer = new byte[fileInputStream.available()];
+      fileInputStream.read(buffer);
+
+      String phenotypePath = System.getProperty("phex.phenotype_directory");
+
+      OutputStream outStream = new FileOutputStream(FilenameUtils.concat(phenotypePath, fileName));
+      int read = 0;
+      byte[] bytes = new byte[1024];
+      while ((read = fileInputStream.read(bytes)) != -1) {
+        outStream.write(bytes, 0, read);
+      }
+      outStream.flush();
+
+      logger.info("Successfully uploaded phenotype: " + fileName);
+
+      return Response.ok("Phenotype uploaded successfully at " + fileName).build();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+
+      logger.info("Failed o uploaded phenotype: " + fileName + ", " + ioe.getMessage());
+
+      return Response.status(500, "Failed o uploaded phenotype: " + fileName + ", " + ioe.getMessage()).build();
+    }
   }
 }

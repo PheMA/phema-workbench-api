@@ -85,7 +85,6 @@
             <version>${version.jersey}</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.glassfish.jersey.inject</groupId>
             <artifactId>jersey-hk2</artifactId>
@@ -116,6 +115,12 @@
             <groupId>com.github.eirslett</groupId>
             <artifactId>frontend-maven-plugin</artifactId>
             <version>1.8.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.6</version>
         </dependency>
 
         <!-- ELM utils -->

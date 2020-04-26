@@ -20,7 +20,9 @@ public class CohortDefinitionResource {
         Config config = new Config();
 
         // FIXME: We're going to need a strategy for this
-        config.setVsFileName("/valuesets/diabetes.csv");
+        String vsFilename = this.getClass().getResource("/valuesets/diabetes.csv").getPath();
+
+        config.setVsFileName(vsFilename);
         config.setOmopBaseURL(cohortDefinitionRequest.getOmopServerUrl());
         config.setSource(cohortDefinitionRequest.getSource());
 

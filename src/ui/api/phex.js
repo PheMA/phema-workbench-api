@@ -34,6 +34,9 @@ class PhEx {
         if (res.headers.get("Content-Type") === "application/xml") {
           body = await res.text();
           type = "xml";
+        } else if (res.headers.get("Content-Type") === "text/plain") {
+          body = await res.text();
+          type = "text";
         } else {
           body = await res.text();
           type = "xml";

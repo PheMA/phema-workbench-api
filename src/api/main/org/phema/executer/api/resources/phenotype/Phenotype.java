@@ -18,7 +18,6 @@ public class Phenotype {
   @JsonProperty("name")
   private String name;
 
-
   @JsonProperty("modified")
   private Date modified;
 

@@ -71,6 +71,10 @@ mvn package
 This will create `target/phema-workbench-api.jar`, which will contain all the dependencies and can be run as described in the **QuickStart**
 section above.
 
+### Deployment
+
+To publish a new Docker image, push a new tag to the repo.
+
 ## Acknowledgements
 
 This work has been funded by NIGMS grant R01GM105688.

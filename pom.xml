@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.phema</groupId>
-    <artifactId>phex</artifactId>
+    <artifactId>phema-workbench-api</artifactId>
     <packaging>jar</packaging>
     <version>0.2.9-SNAPSHOT</version>
-    <name>phex</name>
+    <name>phema-workbench-api</name>
     <url>https://projectphema.org</url>
 
     <properties>
@@ -205,7 +205,7 @@
     </dependencies>
 
     <build>
-        <finalName>PhEx</finalName>
+        <finalName>phema-workbench-api</finalName>
         <sourceDirectory>src/api/main</sourceDirectory>
         <resources>
             <resource>
@@ -218,49 +218,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>10</source>
-                    <target>10</target>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>com.github.eirslett</groupId>
-                <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.8.0</version>
-                <executions>
-                    <execution>
-                        <!-- optional: you don't really need execution ids, but it looks nice in your build log. -->
-                        <id>install node and yarn</id>
-                        <goals>
-                            <goal>install-node-and-yarn</goal>
-                        </goals>
-                        <!-- optional: default phase is "generate-resources" -->
-                        <phase>generate-resources</phase>
-                    </execution>
-
-                    <execution>
-                        <id>yarn run parcel</id>
-
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                    </execution>
-
-                    <execution>
-                        <id>yarn build</id>
-                        <goals>
-                            <goal>yarn</goal>
-                        </goals>
-                        <configuration>
-                            <arguments>run</arguments>
-                            <arguments>build</arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <nodeVersion>v12.16.1</nodeVersion>
-                    <yarnVersion>v1.22.4</yarnVersion>
-                    <workingDirectory>src/ui</workingDirectory>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
 
@@ -276,7 +235,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.phema.executer.PhEx</mainClass>
+                    <mainClass>org.phema.workbench.PhemaWorkbenchApi</mainClass>
                 </configuration>
             </plugin>
 
@@ -291,14 +250,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>src/ui/node/yarn/dist/bin/yarn</executable>
-                    <workingDirectory>src/ui/</workingDirectory>
-                    <arguments>
-                        <argument>run</argument>
-                        <argument>watch</argument>
-                    </arguments>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -319,7 +270,7 @@
                                 <!-- add Main-Class to manifest file -->
                                 <transformer
                                   implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.phema.executer.PhEx</mainClass>
+                                    <mainClass>org.phema.workbench.PhemaWorkbenchApi</mainClass>
                                 </transformer>
                             </transformers>
                             <filters>

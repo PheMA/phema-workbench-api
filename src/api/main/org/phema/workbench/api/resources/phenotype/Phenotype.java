@@ -1,4 +1,4 @@
-package org.phema.executer.api.resources.phenotype;
+package org.phema.workbench.api.resources.phenotype;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 

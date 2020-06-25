@@ -1,4 +1,4 @@
-package org.phema.executer.api.resources.phenotype;
+package org.phema.workbench.api.resources.phenotype;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
@@ -42,7 +42,7 @@ public class PhenotypeList {
   public ArrayList<Phenotype> getEntries() {
     ArrayList<Phenotype> list = new ArrayList<>();
 
-    String phenotypePath = System.getProperty("phex.phenotype_directory");
+    String phenotypePath = System.getProperty("phema-workbench-api.phenotype_directory");
 
     File f = new File(phenotypePath);
     String[] pathnames = f.list();

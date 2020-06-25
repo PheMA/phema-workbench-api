@@ -1,4 +1,4 @@
-package org.phema.executer.api.resources.version;
+package org.phema.workbench.api.resources.version;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

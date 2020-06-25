@@ -1,4 +1,4 @@
-package org.phema.executer.api.resources.phenotype;
+package org.phema.workbench.api.resources.phenotype;
 
 import org.apache.commons.io.FilenameUtils;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
@@ -45,7 +45,7 @@ public class PhenotypeResource {
       byte[] buffer = new byte[fileInputStream.available()];
       fileInputStream.read(buffer);
 
-      String phenotypePath = System.getProperty("phex.phenotype_directory");
+      String phenotypePath = System.getProperty("phema-workbench-api.phenotype_directory");
 
       OutputStream outStream = new FileOutputStream(FilenameUtils.concat(phenotypePath, fileName));
       int read = 0;

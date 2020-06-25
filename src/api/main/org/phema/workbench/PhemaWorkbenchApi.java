@@ -1,4 +1,4 @@
-package org.phema.executer;
+package org.phema.workbench;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -26,16 +26,16 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class PhEx {
-  public static Logger logger = Logger.getLogger(PhEx.class.getSimpleName());
+public class PhemaWorkbenchApi {
+  public static Logger logger = Logger.getLogger(org.phema.workbench.PhemaWorkbenchApi.class.getSimpleName());
 
-  public static int PHEX_DEFAULT_PORT = 8083;
-  public static String PHEX_DEFAULT_PROPERTY_FILE_NAME = "phex.properties";
-  public static String PHEX_DEFAULT_PROPERTY_FILE_PATH = "/opt/phema/phex/" + PHEX_DEFAULT_PROPERTY_FILE_NAME;
+  public static int PHEMA_WORKBENCH_API_DEFAULT_PORT = 8083;
+  public static String PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_NAME = "phema-workbench-api.properties";
+  public static String PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_PATH = "/opt/phema/workbench/" + PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_NAME;
 
   public static void main(String[] args) {
     try {
-      new PhEx().run();
+      new org.phema.workbench.PhemaWorkbenchApi().run();
     } catch (Throwable t) {
       t.printStackTrace();
     }
@@ -43,7 +43,7 @@ public class PhEx {
 
   public void setup() {
     // Make sure phenotype directory exists and try to create it if not
-    String phenotypePath = System.getProperty("phex.phenotype_directory");
+    String phenotypePath = System.getProperty("phema-workbench-api.phenotype_directory");
     File directory = new File(phenotypePath);
     if (!directory.exists()) {
       logger.info("Creating phenotype directory: " + phenotypePath);
@@ -58,7 +58,7 @@ public class PhEx {
     FileInputStream propFile;
 
     // First check for explicit properties file path
-    String explicitPath = p.getProperty("phex.properties_file");
+    String explicitPath = p.getProperty("phema-workbench-api.properties_file");
     if (explicitPath != null && !explicitPath.isEmpty()) {
       logger.info("Loading properties from: " + explicitPath);
       try {
@@ -73,12 +73,12 @@ public class PhEx {
     }
 
     // Then check default location
-    logger.info("Checking for properties file: " + PHEX_DEFAULT_PROPERTY_FILE_PATH);
+    logger.info("Checking for properties file: " + PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_PATH);
     try {
-      propFile = new FileInputStream(PHEX_DEFAULT_PROPERTY_FILE_PATH);
+      propFile = new FileInputStream(PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_PATH);
       p.load(propFile);
       System.setProperties(p);
-      logger.info("Loaded properties file: " + PHEX_DEFAULT_PROPERTY_FILE_PATH);
+      logger.info("Loaded properties file: " + PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_PATH);
       return;
     } catch (Exception e) {
       logger.warning("Error loading properties from " + explicitPath + ": " + e.getMessage());
@@ -87,8 +87,8 @@ public class PhEx {
     // Finally check the resources directory
     logger.info("Checking for properties file in resources directory");
     try {
-      InputStream propInputStream = PhEx.class
-        .getClassLoader().getResourceAsStream(PHEX_DEFAULT_PROPERTY_FILE_NAME);
+      InputStream propInputStream = org.phema.workbench.PhemaWorkbenchApi.class
+        .getClassLoader().getResourceAsStream(PHEMA_WORKBENCH_API_DEFAULT_PROPERTY_FILE_NAME);
       p.load(propInputStream);
       System.setProperties(p);
       logger.info("Loaded properties file in resources directory");
@@ -107,7 +107,7 @@ public class PhEx {
 
     setup();
 
-    Server server = new Server(PHEX_DEFAULT_PORT);
+    Server server = new Server(PHEMA_WORKBENCH_API_DEFAULT_PORT);
     HandlerList handlers = new HandlerList();
 
     ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -118,24 +118,10 @@ public class PhEx {
     config.register(JacksonFeature.class);
     config.register(MultiPartFeature.class);
     config.register(LoggingFeature.class);
-    config.packages("org.phema.executer.api.resources");
+    config.packages("org.phema.workbench.api.resources");
 
     ServletHolder apiServletHolder = new ServletHolder(new ServletContainer(config));
     servletContextHandler.addServlet(apiServletHolder, "/api/v1/*");
-
-    // Set up UI servlet
-    URL webRootLocation = this.getClass().getResource("/ui/index.html");
-    if (webRootLocation == null) {
-      throw new IllegalStateException("Unable to determine webroot URL location");
-    }
-    URI webRootUri = URI.create(webRootLocation.toURI().toASCIIString().replaceFirst("/index.html$", "/"));
-    System.err.printf("Web Root URI: %s%n", webRootUri);
-
-    servletContextHandler.setBaseResource(Resource.newResource(webRootUri));
-    servletContextHandler.setWelcomeFiles(new String[]{"index.html"});
-
-    ServletHolder staticHolder = new ServletHolder("default", DefaultServlet.class);
-    servletContextHandler.addServlet(staticHolder, "/");
 
     // Add CORS filter
     FilterHolder cors = servletContextHandler.addFilter(CrossOriginFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
@@ -151,7 +137,7 @@ public class PhEx {
 
     try {
       server.start();
-      logger.info("Started PhEX API listening on port: " + PHEX_DEFAULT_PORT);
+      logger.info("Started PhEMA Workbench API listening on port: " + PHEMA_WORKBENCH_API_DEFAULT_PORT);
       server.join();
     } catch (Exception ex) {
       logger.log(Level.SEVERE, null, ex);

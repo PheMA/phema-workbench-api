@@ -48,7 +48,7 @@ The PhEMA Workbench API is built using the following technologies:
 > #### 1. Clone the repo
 
 ```
-git clone https://github.com/PheMA/phex.git && cd phex
+git clone https://github.com/phema/phema-workbench-api.git && cd phema-workbench-api
 ```
 
 > #### 2. Run API

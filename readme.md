@@ -4,9 +4,9 @@
 
 # PhEMA Workbench API
 
-[![PhEMA](./repo-badge.svg)](https://projectphema.org)
-[![Build Status](https://travis-ci.org/PheMA/phema-workbench-api.svg?branch=master)](https://travis-ci.org/PheMA/phema-workbench-api)
-[![Download](https://img.shields.io/badge/dynamic/json.svg?label=latest&query=name&url=https://bintray.com/api/v1/packages/phema/docker/phema-phex/versions/_latest) ](https://bintray.com/beta/#/phema/docker/phema-phex?tab=overview)
+[![PhEMA](./repo-badge.svg)](https://projectphema.org "PhEMA")
+[![Build Status](https://travis-ci.org/PheMA/phema-workbench-api.svg?branch=master)](https://travis-ci.org/PheMA/phema-workbench-api "Travis CI build status")
+[![Docker Image](https://images.microbadger.com/badges/version/phema/phema-workbench-api.svg)](https://hub.docker.com/r/phema/phema-workbench-api "Docker image version")
 
 Java API for the [PhEMA](http://projectphema.org) Workbench.
 
@@ -17,6 +17,13 @@ To get started fast, download the latest version on the [releases page](https://
 ```
 java -jar phema-workbench-api.jar
 ```
+
+You can also run the Docker image using the version shown in the badge above, for example:
+
+```
+docker run -p 8083:8083 phema/phema-workbench-api:0.3.0
+```
+
 
 To use the PhEMA Workbench application, you will also need to run the [app](https://github.com/PheMA/phema-workbench-app).
 

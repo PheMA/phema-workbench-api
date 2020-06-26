@@ -17,4 +17,6 @@ COPY --from=builder /opt/phema/phema-workbench-api/target/phema-workbench-api.ja
 
 WORKDIR /opt/phema/phema-workbench-api
 
+EXPOSE 8083
+
 CMD ["java", "-jar", "phema-workbench-api.jar"]

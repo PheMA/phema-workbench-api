@@ -35,7 +35,7 @@ public class ElmResource {
   @POST
   @Path("graph")
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.TEXT_PLAIN)
+  @Produces("text/vnd.graphviz")
   public String getStatementGraph(ElmRequest elmRequest) throws Exception {
     ElmUtil elmUtil = new ElmUtil();
 

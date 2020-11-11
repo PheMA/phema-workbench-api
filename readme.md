@@ -21,7 +21,7 @@ java -jar phema-workbench-api.jar
 You can also run the Docker image using the version shown in the badge above, for example:
 
 ```
-docker run -p 8083:8083 phema/phema-workbench-api:0.3.0
+docker run -p 8083:8083 phema/phema-workbench-api
 ```
 
 To use the PhEMA Workbench application, you will also need to run the [app](https://github.com/PheMA/phema-workbench-app).

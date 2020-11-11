@@ -3,7 +3,7 @@
     <groupId>edu.phema</groupId>
     <artifactId>phema-workbench-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.4.2</version>
+    <version>0.4.3-SNAPSHOT</version>
     <name>phema-workbench-api</name>
     <url>https://projectphema.org</url>
 

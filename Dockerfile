@@ -11,7 +11,7 @@ FROM adoptopenjdk/openjdk11:jdk-11.0.4_11-alpine-slim
 ARG VCS_REF
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-      org.label-schema.vcs-url="e.g. https://github.com/phema/phema-workbench-api"
+      org.label-schema.vcs-url="https://github.com/phema/phema-workbench-api"
 
 COPY --from=builder /opt/phema/phema-workbench-api/target/phema-workbench-api.jar /opt/phema/phema-workbench-api/
 

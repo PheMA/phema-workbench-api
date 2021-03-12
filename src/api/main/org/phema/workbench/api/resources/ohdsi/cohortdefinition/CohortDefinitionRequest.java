@@ -7,20 +7,43 @@ public class CohortDefinitionRequest {
   public CohortDefinitionRequest() {
   }
 
+  /**
+   * CQL code to execute
+   */
   @JsonProperty("code")
   private String code;
 
+  /**
+   * The name of the phenotype
+   */
   @JsonProperty("name")
   private String name;
 
+  /**
+   * The base URL of the OMOP server (WebAPI)
+   * ex., http://omop.test/WebAPI/
+   */
   @JsonProperty("omopServerUrl")
   private String omopServerUrl;
 
+  /**
+   * The OMOP data source that queries should be run against
+   */
   @JsonProperty("source")
   private String source;
 
+  /**
+   * The target database dialect (e.g., pgsql) that should be used when generating a
+   * SQL representation of a phenotype
+   */
   @JsonProperty("targetDialect")
   private String targetDialect;
+
+  /**
+   * A String representation of a JSON FHIR Bundle.
+   */
+  @JsonProperty("bundle")
+  private String bundle;
 
   public String getCode() {
     return code;
@@ -60,5 +83,13 @@ public class CohortDefinitionRequest {
 
   public void setTargetDialect(String targetDialect) {
     this.targetDialect = targetDialect;
+  }
+
+  public String getBundle() {
+    return bundle;
+  }
+
+  public void setBundle(String bundle) {
+    this.bundle = bundle;
   }
 }

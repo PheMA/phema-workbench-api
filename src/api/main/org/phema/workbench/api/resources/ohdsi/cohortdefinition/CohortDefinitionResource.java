@@ -3,6 +3,8 @@ package org.phema.workbench.api.resources.ohdsi.cohortdefinition;
 import edu.phema.elm_to_omop.api.CohortService;
 import edu.phema.elm_to_omop.api.ElmToOmopTranslator;
 import edu.phema.elm_to_omop.helper.Config;
+import edu.phema.elm_to_omop.io.FhirReader;
+import org.hl7.fhir.r4.model.Bundle;
 import org.ohdsi.webapi.cohortdefinition.InclusionRuleReport;
 import org.ohdsi.webapi.service.CohortDefinitionService;
 import org.ohdsi.webapi.service.CohortDefinitionService.CohortDefinitionDTO;
@@ -42,16 +44,22 @@ public class CohortDefinitionResource {
   @Produces(MediaType.APPLICATION_JSON)
   public InclusionRuleReport getOmopCohortDefinitionReport(CohortDefinitionRequest cohortDefinitionRequest) throws Exception {
     Config config = new Config();
-
-    // FIXME: We're going to need a strategy for this
-    config.setVsFileName("/valuesets/diabetes.csv");
+    // Set the common parameters
     config.setOmopBaseURL(cohortDefinitionRequest.getOmopServerUrl());
     config.setSource(cohortDefinitionRequest.getSource());
 
     try {
-      CohortService cs = new CohortService(config);
-
-      return cs.getCohortDefinitionReport(cohortDefinitionRequest.getCode(), cohortDefinitionRequest.getName());
+      if (cohortDefinitionRequest.getBundle() != null) {
+        config.setInputBundleName(cohortDefinitionRequest.getName());
+        CohortService cs = new CohortService(config);
+        Bundle bundle = FhirReader.readBundleFromString(cohortDefinitionRequest.getBundle());
+        return cs.getCohortDefinitionReport(bundle, cohortDefinitionRequest.getName());
+      } else {
+        CohortService cs = new CohortService(config);
+        // FIXME: We're going to need a strategy for this
+        config.setVsFileName("/valuesets/diabetes.csv");
+        return cs.getCohortDefinitionReport(cohortDefinitionRequest.getCode(), cohortDefinitionRequest.getName());
+      }
     } catch (Exception e) {
       e.printStackTrace();
       throw new InternalServerErrorException(e.getMessage());

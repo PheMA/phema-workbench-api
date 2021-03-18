@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>edu.phema</groupId>
     <artifactId>phema-workbench-api</artifactId>
@@ -8,11 +9,13 @@
     <url>https://projectphema.org</url>
 
     <properties>
+        <cqframework.version>1.5.1</cqframework.version>
         <version.jersey>2.29.1</version.jersey>
         <version.jetty>9.4.35.v20201120</version.jetty>
         <ohdsi.webapi.version>2.6.0</ohdsi.webapi.version>
         <ohdsi.circe.version>1.7.0</ohdsi.circe.version>
         <jaxb.version>2.3.1</jaxb.version>
+        <javax.websocket.api.version>1.0</javax.websocket.api.version>
     </properties>
 
     <repositories>
@@ -122,18 +125,49 @@
             <version>2.6</version>
         </dependency>
 
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+
+        <!-- To write basic javax.websocket against -->
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>${javax.websocket.api.version}</version>
+        </dependency>
+        <!-- To run javax.websocket in embedded server -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>javax-websocket-server-impl</artifactId>
+            <version>${version.jetty}</version>
+        </dependency>
+        <!-- To run javax.websocket client -->
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>javax-websocket-client-impl</artifactId>
+            <version>${version.jetty}</version>
+        </dependency>
+
         <!-- ELM utils -->
         <dependency>
             <groupId>edu.phema</groupId>
             <artifactId>elm-utils</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </dependency>
 
         <!-- ELM to OHDSI Translator -->
         <dependency>
             <groupId>edu.phema</groupId>
             <artifactId>phema-elm-to-ohdsi</artifactId>
-            <version>0.3.3</version>
+            <version>0.4.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.glassfish.jersey.core</groupId>
@@ -201,6 +235,34 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- CQL -->
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>model</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>cql-to-elm</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>info.cqframework</groupId>
+            <artifactId>quick</artifactId>
+            <version>${cqframework.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -264,9 +326,11 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                                <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <!-- add Main-Class to manifest file -->
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                  implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.phema.workbench.PhemaWorkbenchApi</mainClass>
                                 </transformer>
                             </transformers>

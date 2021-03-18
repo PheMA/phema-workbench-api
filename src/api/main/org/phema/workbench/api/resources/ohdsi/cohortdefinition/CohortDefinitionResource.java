@@ -9,16 +9,22 @@ import org.ohdsi.webapi.cohortdefinition.InclusionRuleReport;
 import org.ohdsi.webapi.service.CohortDefinitionService;
 import org.ohdsi.webapi.service.CohortDefinitionService.CohortDefinitionDTO;
 import org.ohdsi.webapi.service.CohortDefinitionService.GenerateSqlResult;
+import org.phema.workbench.api.resources.phenotype.PhenotypeResource;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.logging.Logger;
 
 @Path("omop/cohortdefinition")
 public class CohortDefinitionResource {
+  public Logger logger = Logger.getLogger(PhenotypeResource.class.getSimpleName());
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public String getOmopCohortDefinition(CohortDefinitionRequest cohortDefinitionRequest) throws Exception {
+    logger.info("Received cohort definition request");
+
     Config config = new Config();
 
     // FIXME: We're going to need a strategy for this
@@ -30,6 +36,8 @@ public class CohortDefinitionResource {
 
     try {
       ElmToOmopTranslator translator = new ElmToOmopTranslator(config);
+
+      logger.info("Successfully translated CQL");
 
       return translator.cqlToOmopJson(cohortDefinitionRequest.getCode(), cohortDefinitionRequest.getName());
     } catch (Exception e) {
@@ -43,6 +51,8 @@ public class CohortDefinitionResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public InclusionRuleReport getOmopCohortDefinitionReport(CohortDefinitionRequest cohortDefinitionRequest) throws Exception {
+    logger.info("Received cohort report request");
+
     Config config = new Config();
     // Set the common parameters
     config.setOmopBaseURL(cohortDefinitionRequest.getOmopServerUrl());
@@ -52,7 +62,11 @@ public class CohortDefinitionResource {
       if (cohortDefinitionRequest.getBundle() != null) {
         config.setInputBundleName(cohortDefinitionRequest.getName());
         CohortService cs = new CohortService(config);
+
+        logger.info("Deserializing bundle");
         Bundle bundle = FhirReader.readBundleFromString(cohortDefinitionRequest.getBundle());
+
+        logger.info("Calling cohort report service bundle");
         return cs.getCohortDefinitionReport(bundle, cohortDefinitionRequest.getName());
       } else {
         CohortService cs = new CohortService(config);
@@ -71,6 +85,8 @@ public class CohortDefinitionResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public GenerateSqlResult getOmopCohortDefinitionSql(CohortDefinitionRequest cohortDefinitionRequest) throws Exception {
+    logger.info("Received SQL request");
+
     Config config = new Config();
 
     // FIXME: We're going to need a strategy for this
@@ -79,11 +95,27 @@ public class CohortDefinitionResource {
     config.setSource(cohortDefinitionRequest.getSource());
 
     try {
-      CohortService cs = new CohortService(config);
+      if (cohortDefinitionRequest.getBundle() != null) {
+        config.setInputBundleName(cohortDefinitionRequest.getName());
 
-      CohortDefinitionDTO cohort = cs.createCohortDefinition(cohortDefinitionRequest.getCode(), cohortDefinitionRequest.getName());
+        CohortService cs = new CohortService(config);
 
-      return cs.getCohortDefinitionSql(cohort.id, cohortDefinitionRequest.getTargetDialect());
+        logger.info("Deserializing bundle");
+        Bundle bundle = FhirReader.readBundleFromString(cohortDefinitionRequest.getBundle());
+
+        logger.info("Calling cohort report service bundle");
+        CohortDefinitionDTO cohort = cs.createCohortDefinition(bundle, cohortDefinitionRequest.getName());
+
+        return cs.getCohortDefinitionSql(cohort.id, cohortDefinitionRequest.getTargetDialect());
+      } else {
+        CohortService cs = new CohortService(config);
+
+        CohortDefinitionDTO cohort = cs.createCohortDefinition(cohortDefinitionRequest.getCode(), cohortDefinitionRequest.getName());
+
+        logger.info("Successfully generated cohort definition");
+
+        return cs.getCohortDefinitionSql(cohort.id, cohortDefinitionRequest.getTargetDialect());
+      }
     } catch (Exception e) {
       e.printStackTrace();
       throw new InternalServerErrorException(e.getMessage());

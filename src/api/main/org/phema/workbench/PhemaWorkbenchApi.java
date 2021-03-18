@@ -3,24 +3,22 @@ package org.phema.workbench;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
-import org.eclipse.jetty.util.resource.Resource;
+import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.logging.LoggingFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
+import org.phema.workbench.api.resources.ws.PhemaWebSocket;
 
 import javax.servlet.DispatcherType;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URL;
 import java.util.EnumSet;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -133,9 +131,25 @@ public class PhemaWorkbenchApi {
     handlers.addHandler(servletContextHandler);
     handlers.addHandler(new DefaultHandler());
 
+
     server.setHandler(handlers);
 
     try {
+      // Initialize javax.websocket layer
+      WebSocketServerContainerInitializer.configure(servletContextHandler,
+        (servletContext, wsContainer) ->
+        {
+          // This lambda will be called at the appropriate place in the
+          // ServletContext initialization phase where you can initialize
+          // and configure  your websocket container.
+
+          // Configure defaults for container
+          wsContainer.setDefaultMaxTextMessageBufferSize(65535);
+
+          // Add WebSocket endpoint to javax.websocket layer
+          wsContainer.addEndpoint(PhemaWebSocket.class);
+        });
+
       server.start();
       logger.info("Started PhEMA Workbench API listening on port: " + PHEMA_WORKBENCH_API_DEFAULT_PORT);
       server.join();

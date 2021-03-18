@@ -13,13 +13,20 @@ import org.hl7.elm.r1.ExpressionDef;
 import org.hl7.elm.r1.Library;
 import org.ohdsi.webapi.cohortdefinition.InclusionRuleReport;
 import org.phema.workbench.api.resources.ohdsi.cohortdefinition.CohortDefinitionRequest;
+import org.phema.workbench.api.resources.phenotype.PhenotypeResource;
+
+import java.util.logging.Logger;
 
 @Path("elm")
 public class ElmResource {
+  public Logger logger = Logger.getLogger(PhenotypeResource.class.getSimpleName());
+
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
   public String getElmJson(ElmRequest elmRequest) {
+    logger.info("Received ELM JSON request");
+
     CqlToElmTranslator translator = new CqlToElmTranslator();
     return translator.cqlToElmJson(elmRequest.getCode());
   }
@@ -28,6 +35,8 @@ public class ElmResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_XML)
   public String getElmXml(ElmRequest elmRequest) {
+    logger.info("Received ELM XML request");
+
     CqlToElmTranslator translator = new CqlToElmTranslator();
     return translator.cqlToElmXml(elmRequest.getCode());
   }
@@ -37,6 +46,8 @@ public class ElmResource {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces("text/vnd.graphviz")
   public String getStatementGraph(ElmRequest elmRequest) throws Exception {
+    logger.info("Received graph request");
+
     ElmUtil elmUtil = new ElmUtil();
 
     CqlToElmTranslator translator = new CqlToElmTranslator();

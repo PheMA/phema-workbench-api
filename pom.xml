@@ -4,7 +4,7 @@
     <groupId>edu.phema</groupId>
     <artifactId>phema-workbench-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.4.7-webapi-2.2-compat</version>
+    <version>0.4.7-webapi-2.2-compat.1</version>
     <name>phema-workbench-api</name>
     <url>https://projectphema.org</url>
 
@@ -167,7 +167,7 @@
         <dependency>
             <groupId>edu.phema</groupId>
             <artifactId>phema-elm-to-ohdsi</artifactId>
-            <version>0.4.5-webapi-2.2.compat.3</version>
+            <version>0.4.6-webapi-2.2.compat.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.glassfish.jersey.core</groupId>
